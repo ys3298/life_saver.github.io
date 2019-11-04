@@ -10,7 +10,22 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# The group members
+
+Yue Lai  yl4359
+
+# The tentative project title
+
+# The motivation for this project
+
+# The intended final products
+
+In the end, we will finish a report, in which we will discuss the trend of suicide over the recent 30 years worldwide and the association between GDP, HDI and suicide rate. Besides, we will create a webpage and a narrated screencast for our project. 
 
 # The anticipated data sources
 
 We utilized a compiled dataset pulled from four other datasets by locations and time. In the dataset, we have HDI (Human development index) from United Nations Development Program. (2018), GDP per year from World Bank. (2018), and suicide information from Suicide in the Twenty-First Century [dataset] and World Health Organization. (2018). Suicide prevention. The purpose of the data set is to find reasons for the increase in suicide rates associated with socio-economic level in different cohorts around the world from 1985 to 2016. We analyze the dataset to find signals and give advice to prevent suicide.
+
+# The planned analyses / visualizations / coding challenges
+
+# The planned timeline
