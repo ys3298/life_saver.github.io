@@ -1,8 +1,9 @@
 ---
 title: "Proposal"
-author: "Life saver"
+author: "Life savers"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -10,3 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+# The anticipated data sources
+
+We utilized a compiled dataset pulled from four other datasets by locations and time. In the dataset, we have HDI (Human development index) from United Nations Development Program. (2018), GDP per year from World Bank. (2018), and suicide information from Suicide in the Twenty-First Century [dataset] and World Health Organization. (2018). Suicide prevention. The purpose of the data set is to find reasons for the increase in suicide rates associated with socio-economic level in different cohorts around the world from 1985 to 2016. We analyze the dataset to find signals and give advice to prevent suicide.
