@@ -12,8 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # The group members
 
-Yue Lai  yl4359  
+Yue Lai  yl4359   
 Xue Jin  xj2249 
+Sibei Liu sl4660 
 
 # The tentative project title
 
@@ -29,5 +30,13 @@ In the end, we will finish a report, in which we will discuss the trend of suici
 We utilized a compiled dataset pulled from four other datasets by locations and time. In the dataset, we have HDI (Human development index) from United Nations Development Program. (2018), GDP per year from World Bank. (2018), and suicide information from Suicide in the Twenty-First Century [dataset] and World Health Organization. (2018). Suicide prevention. The purpose of the data set is to find reasons for the increase in suicide rates associated with socio-economic level in different cohorts around the world from 1985 to 2016. We analyze the dataset to find signals and give advice to prevent suicide.
 
 # The planned analyses / visualizations / coding challenges
+
+The expected analysis include three parts. First, a general description of data would be applied, including mean, range, variance, and other statistical measurements of the rates. Distribution of suicide rates among countries, genders, years would be shown, thus the "dangerous" group with higher suicide rates can be identified. According to the year-rate results, the trend of suicide rate could also be detected globally and domestically.  Second, doing proportion tests is inevitable when we want to know if there are significant differences between groups. Third,  linear regression methods can be used to explore the potential relationship between suicide rates and other variables.
+
+
+we use histogram or boxplot  to show the rate distribution.Bar plots are to compare rates in groups. Line charts would be utilised to show the general trends and linear relationship. Tables are to show the statistical values in each proportion test.
+
+
+How to find the most proper ways to visualize data would be the biggest challenge.
 
 # The planned timeline
