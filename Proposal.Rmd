@@ -12,11 +12,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # The group members
 
-Yue Lai  yl4359
+Yue Lai  yl4359  
+Xue Jin  xj2249 
 
 # The tentative project title
 
 # The motivation for this project
+Suicide is a major public health concern globally. According to WHO, about 800,000 people die by suicide in 2016, of which 79% occurred in low- and middle-income countries. Overall, suicide accounts for 1.4% of all deaths worldwide, and has become the second leading cause of death among 15-29 age group. Our group aims to summarize the general trend in global suicide rate over time, and explore possible influential factors related to suicide, including age, gender, country and socioeconomic status. Every suicide is tragic but also preventable. Therefore, we hope to arouse public awareness of suicide prevention and provide illustrative background information for further research and development  of preventive strategies. 
 
 # The intended final products
 
