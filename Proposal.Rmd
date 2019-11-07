@@ -2,8 +2,10 @@
 title: "Proposal"
 author: "Life savers"
 date: "`r Sys.Date()`"
+geometry: "left=1cm,right=1cm,top=1cm,bottom=1cm"
 output:
   pdf_document: default
+  github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -12,9 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # The group members
 
-Yue Lai  yl4359   
-Xue Jin  xj2249 
-Sibei Liu sl4660 
+Xue Jin(xj2249); Yimeng Shang(ys3298); Sibei Liu(sl4660); YiLiu(yl4358); Yue Lai(yl4359)
 
 # The tentative project title
 
@@ -27,7 +27,7 @@ In the end, we will finish a report, in which we will discuss the trend of suici
 
 # The anticipated data sources
 
-We utilized a compiled dataset pulled from four other datasets by locations and time. In the dataset, we have HDI (Human development index) from United Nations Development Program. (2018), GDP per year from World Bank. (2018), and suicide information from Suicide in the Twenty-First Century [dataset] and World Health Organization. (2018). Suicide prevention. The purpose of the data set is to find reasons for the increase in suicide rates associated with socio-economic level in different cohorts around the world from 1985 to 2016. We analyze the dataset to find signals and give advice to prevent suicide.
+We plan to utilize a compiled dataset pulled from four other datasets by locations and time. In the dataset, we have HDI (Human development index) from the United Nations Development Program (2018), GDP per year from World Bank (2018), and suicide information from Suicide in the Twenty-First Century [dataset] and World Health Organization Suicide prevention (2018). We will analyze the dataset to find signals and draw conclusions.
 
 # The planned analyses / visualizations / coding challenges
 
@@ -40,3 +40,14 @@ we use histogram or boxplot  to show the rate distribution.Bar plots are to comp
 How to find the most proper ways to visualize data would be the biggest challenge.
 
 # The planned timeline
+
+| TIME  | TASKS   |
+| :------------------: | :----------------------------------------------------------------------------------: |
+| 1st, Nov - 7th, Nov  | Reading scientific papers; written proposal document; group members works assignment  |
+| 8th, Nov - 13th, Nov  | Scraping and cleaning the data; initial data exploration|
+| 14th, Nov - 15th, Nov  |Project review meeting     |
+| 16th, Nov - 26th, Nov |  Exploratory analysis; Website establishment |                         
+| 27th, Nov - 4th, Dec  |Written report giving detailed project description; further analysis
+| 5th, Dec - 9th, Dec    | Preparation for presentation     |
+
+
