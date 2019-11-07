@@ -18,7 +18,7 @@ Xue Jin(xj2249); Yimeng Shang(ys3298); Sibei Liu(sl4660); Yi Liu(yl4358); Yue La
 
 ### The motivation for this project
 
-Suicide is a major public health concern globally. According to WHO, about 800,000 people die by suicide in 2016, of which 79% occurred in low- and middle-income countries. Overall, suicide accounts for 1.4% of all deaths worldwide, and has become the second leading cause of death among 15-29 age group. Our group aims to summarize the general trend in global suicide rate over time, and explore possible influential factors related to suicide, including age, gender, country and socioeconomic status. Every suicide is tragic but also preventable. Therefore, we hope to arouse public awareness of suicide prevention and provide illustrative background information for further research and development  of preventive strategies. 
+Suicide is a major public health concern globally. According to WHO, about 800,000 people died by suicide in 2016, of which 79% occurred in low- and middle-income countries. Overall, suicide accounts for 1.4% of all deaths worldwide, and has become the second leading cause of death among 15-29 age group. Our group aims to summarize the general trend in global suicide rate over time, and explore possible influential factors related to suicide, including age, gender, country and socioeconomic status. Every suicide is tragic but also preventable. Therefore, we hope to arouse public awareness of suicide prevention and provide illustrative background information for further research and development  of preventive strategies. 
 
 ### The intended final products
 
@@ -32,7 +32,7 @@ We plan to utilize a compiled dataset pulled from four other datasets by locatio
 
 The expected analysis include three parts. First, a general description of data would be applied, including mean, range, variance, and other statistical measurements of the rates. Distribution of suicide rates among countries, genders, years would be shown, thus the "dangerous" group with higher suicide rates can be identified. According to the year-rate results, the trend of suicide rate could also be detected globally and domestically. Second, doing proportion tests is necessary when we want to know if there are significant differences between groups. Third, linear regression methods can be used to explore the potential relationship between suicide rates and other variables.
 
-we use histogram or boxplot  to show the rate distribution. Bar plots are to compare rates in groups. Line charts would be utilised to show the general trends and linear relationship. Tables are to show the statistical values in each proportion test.
+We use histogram or boxplot to show the rate distribution. Bar plots are to compare rates in groups. Line charts would be utilized to show the general trends and linear relationship. Tables are to show the statistical values in each proportion test.
 
 How to find the most proper ways to visualize data would be the biggest challenge.
 
