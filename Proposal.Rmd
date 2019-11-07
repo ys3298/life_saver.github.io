@@ -2,9 +2,9 @@
 title: "Proposal"
 author: "Life savers"
 date: "`r Sys.Date()`"
-geometry: "left=1cm,right=1cm,top=1cm,bottom=1cm"
-output:
-  pdf_document: default
+
+
+output: github_document
 
 ---
 
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Xue Jin(xj2249); Yimeng Shang(ys3298); Sibei Liu(sl4660); YiLiu(yl4358); Yue Lai(yl4359)
 
-### The tentative project title: Every life matters
+### The tentative project title: Serious facts about life
 
 ### The motivation for this project
 
@@ -24,7 +24,7 @@ Suicide is a major public health concern globally. According to WHO, about 800,0
 
 ### The intended final products
 
-In the end, we will finish a report, in which we will discuss the trend of suicide over the recent 30 years worldwide and the association between GDP, HDI and suicide rate. Besides, we will create a webpage and a narrated screencast for our project. 
+In the end, we will finish a report, in which we will discuss the trend of suicide over the recent 30 years worldwide and the association between potential variables. Besides, we will create a webpage and a narrated screencast for our project.  
 
 ### The anticipated data sources
 
@@ -32,11 +32,9 @@ We plan to utilize a compiled dataset pulled from four other datasets by locatio
 
 ### The planned analyses / visualizations / coding challenges
 
-The expected analysis include three parts. First, a general description of data would be applied, including mean, range, variance, and other statistical measurements of the rates. Distribution of suicide rates among countries, genders, years would be shown, thus the "dangerous" group with higher suicide rates can be identified. According to the year-rate results, the trend of suicide rate could also be detected globally and domestically.  Second, doing proportion tests is inevitable when we want to know if there are significant differences between groups. Third,  linear regression methods can be used to explore the potential relationship between suicide rates and other variables.
+The expected analysis include three parts. First, a general description of data would be applied, including mean, range, variance, and other statistical measurements of the rates. Distribution of suicide rates among countries, genders, years would be shown, thus the "dangerous" group with higher suicide rates can be identified. According to the year-rate results, the trend of suicide rate could also be detected globally and domestically. Second, doing proportion tests is necessary when we want to know if there are significant differences between groups. Third, linear regression methods can be used to explore the potential relationship between suicide rates and other variables.
 
-
-we use histogram or boxplot  to show the rate distribution.Bar plots are to compare rates in groups. Line charts would be utilised to show the general trends and linear relationship. Tables are to show the statistical values in each proportion test.
-
+we use histogram or boxplot  to show the rate distribution. Bar plots are to compare rates in groups. Line charts would be utilised to show the general trends and linear relationship. Tables are to show the statistical values in each proportion test.
 
 How to find the most proper ways to visualize data would be the biggest challenge.
 
