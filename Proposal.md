@@ -54,8 +54,8 @@ when we want to know if there are significant differences between
 groups. Third, linear regression methods can be used to explore the
 potential relationship between suicide rates and other variables.
 
-we use histogram or boxplot to show the rate distribution. Bar plots are
-to compare rates in groups. Line charts would be utilised to show the
+We use histogram or boxplot to show the rate distribution. Bar plots are
+to compare rates in groups. Line charts would be utilized to show the
 general trends and linear relationship. Tables are to show the
 statistical values in each proportion test.
 
