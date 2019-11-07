@@ -5,8 +5,8 @@ Life savers
 
 ### The group members
 
-Xue Jin(xj2249); Yimeng Shang(ys3298); Sibei Liu(sl4660); YiLiu(yl4358);
-Yue Lai(yl4359)
+Xue Jin(xj2249); Yimeng Shang(ys3298); Sibei Liu(sl4660); Yi
+Liu(yl4358); Yue Lai(yl4359)
 
 ### The tentative project title: Serious facts about life
 
