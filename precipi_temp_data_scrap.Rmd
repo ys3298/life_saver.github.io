@@ -1,0 +1,56 @@
+---
+title: "weather_data_scraping"
+author: "Yue Lai"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rvest)
+library(httr)
+```
+
+
+## scraping precipitation data from website
+
+```{r}
+precipi_data = read_html("https://www.netstate.com/states/tables/state_precipitation.htm") %>%
+  html_nodes(css = "table") %>%
+  .[[1]] %>%
+  html_table(fill = TRUE) %>% 
+  select(X2, X3) %>% 
+  slice(-1:-4) %>% 
+  slice(-(n() - 3):-n()) %>% 
+  rename(state = X2, precipitation = X3) %>% 
+  separate(precipitation, into = c("precipitation_inches", "precipitation_cm"), sep = " inches [(]") %>% 
+  select(state, precipitation_inches) %>% 
+  mutate(precipitation_inches = as.numeric(precipitation_inches))
+
+write.table(precipi_data, file = "./data/precipitation_avg.csv", sep = ",", row.names = FALSE)
+```
+
+## scraping temperature data from website
+
+```{r}
+temperature_data = read_html("http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&dis=&wist=&plow=&phigh=") %>%
+  html_nodes(css = "table") %>%
+  .[[2]] %>%
+  html_table() %>% 
+  slice(-1) %>% 
+  separate(X2, into = c("temperature", "unit"), sep = "°") %>% 
+  separate(X3, into = c("area_state", "population"), sep = " / ") %>% 
+  separate(area_state, into = c("area", "state"), sep = ", ") %>% 
+  select(temperature, state) %>% 
+  mutate(temperature = as.numeric(temperature)) %>% 
+  group_by(state) %>% 
+  summarize(mean_temperature_F = mean(temperature)) %>% 
+  filter(nchar(state) == 2)
+
+write.table(temperature_data, file = "./data/temperature_avg.csv", sep = ",", row.names = FALSE)
+```
+
+
+
+
+
