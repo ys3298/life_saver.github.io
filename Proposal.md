@@ -13,7 +13,7 @@ Liu(yl4358); Yue Lai(yl4359)
 ### The motivation for this project
 
 Suicide is a major public health concern globally. According to WHO,
-about 800,000 people die by suicide in 2016, of which 79% occurred in
+about 800,000 people died by suicide in 2016, of which 79% occurred in
 low- and middle-income countries. Overall, suicide accounts for 1.4% of
 all deaths worldwide, and has become the second leading cause of death
 among 15-29 age group. Our group aims to summarize the general trend in
@@ -54,8 +54,8 @@ when we want to know if there are significant differences between
 groups. Third, linear regression methods can be used to explore the
 potential relationship between suicide rates and other variables.
 
-we use histogram or boxplot to show the rate distribution. Bar plots are
-to compare rates in groups. Line charts would be utilised to show the
+We use histogram or boxplot to show the rate distribution. Bar plots are
+to compare rates in groups. Line charts would be utilized to show the
 general trends and linear relationship. Tables are to show the
 statistical values in each proportion test.
 

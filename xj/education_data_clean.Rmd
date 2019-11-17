@@ -1,0 +1,23 @@
+---
+title: "edu_2017"
+author: "xj2249"
+date: "11/17/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+read and clean data
+```{r}
+edu <- 
+  cbind(readxl::read_excel("./xj/Educational Attainment.xlsx",range = "A2:A54"),
+        readxl::read_excel("./xj/Educational Attainment.xlsx",range = "N2:S54")) %>% 
+  janitor::clean_names() %>% 
+  mutate(year = "2017") %>% 
+  select(state, year, everything(),-less_than_bachelors,-at_least_bachelors) 
+write_csv(edu,"./data/edu_2017.csv")
+```
+
