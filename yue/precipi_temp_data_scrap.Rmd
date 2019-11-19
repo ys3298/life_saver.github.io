@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(rvest)
 library(httr)
+library(readxl)
 ```
 
 
@@ -27,27 +28,33 @@ precipi_data = read_html("https://www.netstate.com/states/tables/state_precipita
   select(state, precipitation_inches) %>% 
   mutate(precipitation_inches = as.numeric(precipitation_inches))
 
-write.table(precipi_data, file = "./data/precipitation_avg.csv", sep = ",", row.names = FALSE)
+write.table(precipi_data, file = "./precipitation_avg.csv", sep = ",", row.names = FALSE)
 ```
 
 ## scraping temperature data from website
 
 ```{r}
-temperature_data = read_html("http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&dis=&wist=&plow=&phigh=") %>%
+temp_data = read_html("http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&dis=&wist=&plow=&phigh=") %>%
   html_nodes(css = "table") %>%
   .[[2]] %>%
   html_table() %>% 
   slice(-1) %>% 
   separate(X2, into = c("temperature", "unit"), sep = "°") %>% 
   separate(X3, into = c("area_state", "population"), sep = " / ") %>% 
-  separate(area_state, into = c("area", "state"), sep = ", ") %>% 
-  select(temperature, state) %>% 
+  separate(area_state, into = c("area", "state_ab"), sep = ", ") %>% 
+  select(temperature, state_ab) %>% 
   mutate(temperature = as.numeric(temperature)) %>% 
-  group_by(state) %>% 
+  group_by(state_ab) %>% 
   summarize(mean_temperature_F = mean(temperature)) %>% 
-  filter(nchar(state) == 2)
+  filter(nchar(state_ab) == 2)
 
-write.table(temperature_data, file = "./data/temperature_avg.csv", sep = ",", row.names = FALSE)
+state_ab_data = read_excel(path = "./state_ab.xlsx")
+
+temperature_data = 
+  left_join(state_ab_data, temp_data, by = "state_ab") %>% 
+  select(state, mean_temperature_F)
+
+write.table(temperature_data, file = "./temperature_avg.csv", sep = ",", row.names = FALSE)
 ```
 
 
