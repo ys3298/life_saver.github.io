@@ -11,3 +11,39 @@ library(tidyverse)
 library(readxl)
 ```
 
+```{r}
+suicide_rate_df = 
+  read_excel("./suicide_age_gender.xlsx") %>% 
+  janitor::clean_names() %>%
+  filter(year == 2017) %>% 
+  filter(is.na(ten_year_age_groups)) %>% 
+  drop_na(gender) %>% 
+  select(state,gender, deaths, population) %>%
+  group_by(state) %>% 
+  summarize(
+    suicide_rate_per100000 = sum(deaths)*100000/sum(population)
+  )
+
+write_csv(suicide_rate_df,"./Suicide_rate_2017.csv")
+```
+
+```{r}
+gender_rate_df = 
+  read_excel("./suicide_age_gender.xlsx") %>% 
+  janitor::clean_names() %>%
+  filter(year == 2017) %>% 
+  filter(is.na(ten_year_age_groups)) %>% 
+  drop_na(gender) %>% 
+  select(state,gender,population) %>% 
+  pivot_wider(
+    names_from = "gender",
+    values_from = "population"
+  ) %>% 
+  mutate(
+    female_ratio = Female/(Female+Male),
+    male_ratio = Male/(Female+Male)
+  ) %>% 
+  select(state, female_ratio, male_ratio)
+write_csv(gender_rate_df,"./Gender_rate_2017.csv")
+```
+
