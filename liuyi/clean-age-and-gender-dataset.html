@@ -400,6 +400,19 @@ write_csv(suicide_rate_df,&quot;./Suicide_rate_2017.csv&quot;)</code></pre>
   ) %&gt;% 
   select(state, female_ratio, male_ratio)
 write_csv(gender_rate_df,&quot;./Gender_rate_2017.csv&quot;)</code></pre>
+<pre class="r"><code>gender_suiciderate_df =
+  read_excel(&quot;./suicide_age_gender.xlsx&quot;) %&gt;% 
+  janitor::clean_names() %&gt;%
+  filter(year == 2017) %&gt;% 
+  filter(is.na(ten_year_age_groups)) %&gt;% 
+  drop_na(gender) %&gt;% 
+  select(state,gender,deaths,population) %&gt;% 
+  mutate(
+    suicide_rate_per100000 = deaths*100000/population
+  ) %&gt;% 
+  select(state, gender, suicide_rate_per100000)
+
+write_csv(gender_suiciderate_df,&quot;./Gender_suiciderate_2017.csv&quot;)</code></pre>
 
 
 
