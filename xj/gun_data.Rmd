@@ -1,0 +1,33 @@
+---
+title: "gun_data"
+author: "xj2249"
+date: "11/16/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rvest)
+library(httr)
+```
+
+```{r}
+url = "https://www.thoughtco.com/gun-owners-percentage-of-state-populations-3325153"
+gun_xml = read_html(url)
+gun_xml %>%
+  html_nodes(css = "table")
+
+gun_2017 = 
+  (gun_xml %>% html_nodes(css = "table")) %>% 
+  .[[1]] %>%
+  html_table(header = T) %>% 
+  slice(-1) %>% 
+  as_tibble() %>% 
+  janitor::clean_names() %>% 
+  mutate(year = "2017") %>% 
+  select(state,year,everything(),-rank)
+
+write_csv(gun_2017,"./data/gun_2017.csv")
+```
+
