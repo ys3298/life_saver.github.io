@@ -413,6 +413,51 @@ write_csv(gender_rate_df,&quot;./Gender_rate_2017.csv&quot;)</code></pre>
   select(state, gender, suicide_rate_per100000)
 
 write_csv(gender_suiciderate_df,&quot;./Gender_suiciderate_2017.csv&quot;)</code></pre>
+<pre class="r"><code>age_df =
+  read_excel(&quot;./suicide_age_gender.xlsx&quot;) %&gt;% 
+  janitor::clean_names() %&gt;%
+  filter(year == 2017) %&gt;% 
+  drop_na(ten_year_age_groups) %&gt;% 
+  select(state,gender,ten_year_age_groups, population) %&gt;% 
+  pivot_wider(
+    names_from = &quot;gender&quot;,
+    values_from = &quot;population&quot;
+  ) %&gt;% 
+  mutate(
+    Female = replace(Female, is.na(Female), 0),
+    Male = replace(Male, is.na(Male), 0),
+    total = Female + Male
+  ) %&gt;% 
+  select(-Female, -Male) %&gt;%
+ pivot_wider(
+    names_from = &quot;ten_year_age_groups&quot;,
+    values_from = &quot;total&quot;
+  ) %&gt;%
+  rename(&quot;Y15_24&quot; = &quot;15-24 years&quot;, &quot;Y25_34&quot; = &quot;25-34 years&quot;,&quot;Y35_44&quot; = &quot;35-44 years&quot;,&quot;Y45_54&quot; = &quot;45-54 years&quot;,&quot;Y55_64&quot; = &quot;55-64 years&quot;,&quot;Y65_74&quot; = &quot;65-74 years&quot;,&quot;Y5_14&quot; = &quot;5-14 years&quot;, &quot;Y75_84&quot; = &quot;75-84 years&quot;,&quot;Y85_larger&quot; = &quot;85+ years&quot;) %&gt;% 
+  mutate(
+    Y5_14 = replace(Y5_14, is.na(Y5_14), 0),
+    Y15_24 = replace(Y15_24, is.na(Y15_24), 0),
+    Y25_34 = replace(Y25_34, is.na(Y25_34), 0),
+    Y35_44 = replace(Y35_44, is.na(Y35_44), 0),
+    Y45_54 = replace(Y45_54, is.na(Y45_54), 0),
+    Y55_64 = replace(Y55_64, is.na(Y55_64), 0),
+    Y65_74 = replace(Y65_74, is.na(Y65_74), 0),
+    Y75_84 = replace(Y75_84, is.na(Y75_84), 0),
+    Y85_larger = replace(Y85_larger, is.na(Y85_larger), 0),
+    total = Y5_14 + Y15_24 + Y25_34+Y35_44+Y45_54+Y55_64+Y65_74 +Y75_84+Y85_larger,
+    R5_14 = Y5_14/total,
+    R15_24= Y15_24/total,
+    R25_34=Y25_34/total,
+    R35_44=Y35_44/total,
+    R45_54=Y45_54/total,
+    R55_64=Y55_64/total,
+    R65_74=Y65_74/total,
+    R75_84=Y75_84/total,
+    R85_larger = Y85_larger/total
+  ) %&gt;% 
+  select(state, contains(&quot;R&quot;))
+
+write_csv(age_df,&quot;./Agerate_2017.csv&quot;)</code></pre>
 
 
 
