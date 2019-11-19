@@ -382,7 +382,8 @@ summary {
     suicide_rate_per100000 = sum(deaths)*100000/sum(population)
   )
 
-write_csv(suicide_rate_df,&quot;./Suicide_rate_2017.csv&quot;)</code></pre>
+write_csv(suicide_rate_df,&quot;./Suicide_rate_2017.csv&quot;)
+write_csv(suicide_rate_df,&quot;../data/Suicide_rate_2017.csv&quot;)</code></pre>
 <pre class="r"><code>gender_rate_df = 
   read_excel(&quot;./suicide_age_gender.xlsx&quot;) %&gt;% 
   janitor::clean_names() %&gt;%
@@ -399,7 +400,8 @@ write_csv(suicide_rate_df,&quot;./Suicide_rate_2017.csv&quot;)</code></pre>
     male_ratio = Male/(Female+Male)
   ) %&gt;% 
   select(state, female_ratio, male_ratio)
-write_csv(gender_rate_df,&quot;./Gender_rate_2017.csv&quot;)</code></pre>
+write_csv(gender_rate_df,&quot;./Gender_rate_2017.csv&quot;)
+write_csv(gender_rate_df,&quot;../data/Gender_rate_2017.csv&quot;)</code></pre>
 <pre class="r"><code>gender_suiciderate_df =
   read_excel(&quot;./suicide_age_gender.xlsx&quot;) %&gt;% 
   janitor::clean_names() %&gt;%
@@ -412,7 +414,8 @@ write_csv(gender_rate_df,&quot;./Gender_rate_2017.csv&quot;)</code></pre>
   ) %&gt;% 
   select(state, gender, suicide_rate_per100000)
 
-write_csv(gender_suiciderate_df,&quot;./Gender_suiciderate_2017.csv&quot;)</code></pre>
+write_csv(gender_suiciderate_df,&quot;./Gender_suiciderate_2017.csv&quot;)
+write_csv(gender_suiciderate_df,&quot;../data/Gender_suiciderate_2017.csv&quot;)</code></pre>
 <pre class="r"><code>age_df =
   read_excel(&quot;./suicide_age_gender.xlsx&quot;) %&gt;% 
   janitor::clean_names() %&gt;%
@@ -457,7 +460,8 @@ write_csv(gender_suiciderate_df,&quot;./Gender_suiciderate_2017.csv&quot;)</code
   ) %&gt;% 
   select(state, contains(&quot;R&quot;))
 
-write_csv(age_df,&quot;./Agerate_2017.csv&quot;)</code></pre>
+write_csv(age_df,&quot;./Agerate_2017.csv&quot;)
+write_csv(age_df,&quot;../data/Agerate_2017.csv&quot;)</code></pre>
 
 
 

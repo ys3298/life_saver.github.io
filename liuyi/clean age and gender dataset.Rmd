@@ -25,6 +25,7 @@ suicide_rate_df =
   )
 
 write_csv(suicide_rate_df,"./Suicide_rate_2017.csv")
+write_csv(suicide_rate_df,"../data/Suicide_rate_2017.csv")
 ```
 
 ```{r}
@@ -45,6 +46,7 @@ gender_rate_df =
   ) %>% 
   select(state, female_ratio, male_ratio)
 write_csv(gender_rate_df,"./Gender_rate_2017.csv")
+write_csv(gender_rate_df,"../data/Gender_rate_2017.csv")
 ```
 
 ```{r}
@@ -61,6 +63,7 @@ gender_suiciderate_df =
   select(state, gender, suicide_rate_per100000)
 
 write_csv(gender_suiciderate_df,"./Gender_suiciderate_2017.csv")
+write_csv(gender_suiciderate_df,"../data/Gender_suiciderate_2017.csv")
 
 ```
 
@@ -111,6 +114,7 @@ age_df =
   select(state, contains("R"))
 
 write_csv(age_df,"./Agerate_2017.csv")
+write_csv(age_df,"../data/Agerate_2017.csv")
 
 ```
 
