@@ -182,7 +182,9 @@ state_ab_data = read_excel(path = "./data/state_ab.xlsx")
 
 temperature = 
   left_join(state_ab_data, temp_data, by = "state_ab") %>% 
-  select(state, mean_temperature_F)
+  select(state, mean_temperature_F) %>% 
+  mutate(state = str_replace(state, "\\s", ""))
+
 
 ## joint
 us_2017 = 
@@ -195,3 +197,5 @@ us_2017 =
   left_join(gun) %>% 
   left_join(precipitation) %>% 
   left_join(temperature) 
+
+write_csv(us_2017,"./data/us_2017.csv")
