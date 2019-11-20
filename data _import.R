@@ -185,6 +185,10 @@ temperature =
   select(state, mean_temperature_F) %>% 
   mutate(state = str_replace(state, "\\s", ""))
 
+## GDP
+gdp = read.csv("./data/gdp_2017.csv") %>% 
+  mutate(gdp = X2017) %>% 
+  select(-X2017)
 
 ## joint
 us_2017 = 
@@ -194,8 +198,10 @@ us_2017 =
   left_join(alcohol) %>% 
   left_join(marijuana) %>% 
   left_join(edu) %>% 
+  left_join(gdp) %>% 
   left_join(gun) %>% 
   left_join(precipitation) %>% 
-  left_join(temperature) 
+  left_join(temperature) %>% 
+  select(-year)
 
 write_csv(us_2017,"./data/us_2017.csv")
