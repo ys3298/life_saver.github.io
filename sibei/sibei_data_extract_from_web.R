@@ -14,4 +14,4 @@ table_gdp_2017 =
   select(state,x2017) %>% 
   rename("2017"="x2017")
 
-write_csv(table_gdp_2017,"./data/gdp_per_2017.csv")
+write_csv(table_gdp_2017,"./data/gdp_2017.csv")
