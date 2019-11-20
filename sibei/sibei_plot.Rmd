@@ -1,0 +1,12 @@
+---
+title: "plot from sibei"
+author: "Sibei Liu"
+date: "2019/11/19"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+global=read_csv("./data/master.csv")
+```
+
