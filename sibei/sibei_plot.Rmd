@@ -5,9 +5,10 @@ date: "2019/11/19"
 output: html_document
 ---
 
+
 ```{r}
 library(tidyverse)
-global=read_csv("./data/master.csv")
 
+global=read_csv("../data/master.csv")
 ```
 
