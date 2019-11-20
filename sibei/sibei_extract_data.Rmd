@@ -27,7 +27,7 @@ table_gdp_2017 =
   rename("2017"="x2017")
 ```
 ```{r}
-write_csv(table_gdp_2017,path="./gdp_2017.csv")
+write_csv(table_gdp_2017,"../data/gdp_2017.csv")
 ```
 
 
