@@ -380,10 +380,9 @@ summary {
   group_by(state) %&gt;% 
   summarize(
     suicide_rate_per100000 = sum(deaths)*100000/sum(population)
-  )</code></pre>
-<pre><code>## Warning in FUN(X[[i]], ...): strings not representable in native encoding
-## will be translated to UTF-8</code></pre>
-<pre class="r"><code>write_csv(suicide_rate_df,&quot;./Suicide_rate_2017.csv&quot;)
+  )
+
+write_csv(suicide_rate_df,&quot;./Suicide_rate_2017.csv&quot;)
 write_csv(suicide_rate_df,&quot;../data/Suicide_rate_2017.csv&quot;)</code></pre>
 <pre class="r"><code>gender_rate_df = 
   read_excel(&quot;./suicide_age_gender.xlsx&quot;) %&gt;% 
