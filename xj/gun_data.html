@@ -385,6 +385,9 @@ gun_xml %&gt;%
   janitor::clean_names() %&gt;% 
   mutate(year = &quot;2017&quot;) %&gt;% 
   select(state,year,everything(),-rank)</code></pre>
+<pre><code>## Warning in FUN(X[[i]], ...): strings not representable in native encoding
+## will be translated to UTF-8</code></pre>
+<pre class="r"><code>write_csv(gun_2017,&quot;./data/gun_2017.csv&quot;)</code></pre>
 
 
 

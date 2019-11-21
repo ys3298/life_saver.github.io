@@ -1,22 +1,10 @@
----
-title: "extract data from web"
-author: "Sibei Liu"
-date: "2019/11/18"
-output: html_document
----
 
-```{r}
 library(tidyverse)
-library(rvest)
 library(httr)
-```
-
-```{r}
+library(rvest)
 url = "https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita"
 gdp_xml = read_html(url)
-```
 
-```{r}
 table_gdp_2017 = 
   (gdp_xml %>% html_nodes(css = "table")) %>% 
   .[[1]] %>%
@@ -25,9 +13,5 @@ table_gdp_2017 =
   filter(state!=c("District of Columbia","United States")) %>% 
   select(state,x2017) %>% 
   rename("2017"="x2017")
-```
-```{r}
-write_csv(table_gdp_2017,"../data/gdp_2017.csv")
-```
 
-
+write_csv(table_gdp_2017,"./data/gdp_2017.csv")
