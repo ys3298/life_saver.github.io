@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+author: "xj2249"
+date: "2019/11/26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+world <- read_csv("./data/master.csv")
+```
+
+
+```{r}
+world %>% view()
+names(world)
+
+world_clean <-
+  world %>% 
+  rename( "rate_standardized" = "suicides/100k pop") %>% 
+  mutate(suicides = population * rate_standardized) %>% 
+  group_by(country,year) %>% 
+  summarise(rate = sum(suicides)/sum(population))
+
+world_clean %>% view()
+ 
+```
+
