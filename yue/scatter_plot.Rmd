@@ -1,0 +1,82 @@
+---
+title: "scater plot"
+author: "Yue Lai"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+us_data = read_csv("../data/us_2017.csv") %>% 
+  filter(state != "District of Columbia")
+```
+
+```{r}
+# gun
+us_data %>% 
+  ggplot(aes(x = number_of_guns_per_capita, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "Number of guns per 1000 population", 
+       y = "Suicide rate per 100000 population")
+
+# alcohol
+us_data %>% 
+  ggplot(aes(x = alcohol_consumption_per_capita_gallons, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "Alcohol consumption per capita (gallons of ethanol)"， 
+       y = "Suicide rate per 100000 population")
+
+# temperature
+us_data %>% 
+  ggplot(aes(x = mean_temperature_F, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "Average temperature (F)", 
+       y = "Suicide rate per 100000 population")
+
+# precipitation
+us_data %>% 
+  ggplot(aes(x = precipitation_inches, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "Average precipitation (inches)",
+       y = "Suicide rate per 100000 population")
+
+# marijuana
+us_data %>% 
+  ggplot(aes(x = marijuana_percentage * 100, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "Marijuana use in adults (%)", 
+       y = "Suicide rate per 100000 population")
+
+# education
+us_data %>% 
+  ggplot(aes(x = (advanced_degree + bachelors_degree) * 100, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "Educational attainment - bachelor's degree or higher (%) ",
+       y = "Suicide rate per 100000 population")
+
+# gdp
+us_data %>% 
+  ggplot(aes(x = gdp, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "GDP per capita (dollars)",
+       y = "Suicide rate per 100000 population")
+
+# gender
+us_data %>% 
+  ggplot(aes(x = male_ratio * 100, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "Male (%)",
+       y = "Suicide rate per 100000 population")
+
+# age
+us_data %>% 
+  ggplot(aes(x = male_ratio * 100, y = suicide_rate_per100000)) +
+  geom_point() +
+  labs(x = "Male (%)",
+       y = "Suicide rate per 100000 population")
+
+# no data about average age 
+```
