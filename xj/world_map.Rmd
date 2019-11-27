@@ -8,14 +8,15 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-world <- read_csv("./data/master.csv")
+library(countrycode)
+devtools::install_github("dgrtwo/gganimate", ref = "26ec501")
+library(gganimate)
+library(rworldmap)
 ```
 
 
 ```{r}
-world %>% view()
-names(world)
-
+world <- read_csv("./data/master.csv")
 world_clean <-
   world %>% 
   rename( "rate_standardized" = "suicides/100k pop") %>% 
@@ -23,7 +24,64 @@ world_clean <-
   group_by(country,year) %>% 
   summarise(rate = sum(suicides)/sum(population))
 
+# get Min and Max values of suicide rate
+vmax <- world_clean %>% pull(rate) %>% max(na.rm=T)
+vmin <- world_clean %>% pull(rate) %>% min(na.rm=T)
+```
+
+```{r}
+world_clean <-
+  world_clean %>% 
+  mutate(
+    'country_iso3c' =   countrycode(country,'country.name', 'iso3c')
+  ) 
 world_clean %>% view()
- 
+```
+
+```{r}
+wmap <- 
+  getMap(resolution="low") %>% 
+  spTransform(CRS("+proj=robin"))
+  
+# get centroids of countries
+centroids <- 
+  rgeos::gCentroid( wmap , byid=TRUE, id = wmap@data$ISO3) %>% 
+  data.frame()
+  
+data.table::setDT(centroids, keep.rownames = TRUE)[]
+data.table::setnames(centroids, "rn", "country_iso3c")
+```
+
+
+```{r}
+wmap_df <- 
+  fortify(wmap, region = "ISO3") %>% 
+  left_join(world_clean, by = c('id' = 'country_iso3c')) %>% 
+  left_join(centroids, by = c('id'='country_iso3c'))
+```
+
+```{r}
+# plot
+world_plot <- 
+  ggplot(data = wmap_df) +
+  geom_polygon(aes(x = long, y = lat, group = group, fill = rate, frame = year),color = "gray90") +
+  viridis::scale_fill_viridis(name = "Suicide rate", begin = 0, end = 1, limits = c(vmin,vmax), na.value = "gray99") +
+  theme_void() +
+  guides(fill = guide_colorbar(title.position = "top")) +
+        labs(title = "Suicide rate: ") +
+        theme(plot.title = element_text(hjust = 0.5, vjust = 0.05, size=25)) +
+        theme(plot.caption = element_text(hjust = 0, color = "gray40", size=15)) +
+        coord_cartesian(xlim = c(-11807982, 14807978)) +
+        theme( legend.position = c(.5, .08), 
+               legend.direction = "horizontal", 
+               legend.title.align = 0,
+               legend.key.size = unit(1.3, "cm"),
+               legend.title = element_text(size = 17), 
+               legend.text = element_text(size = 13) )
+
+# save gif
+gg_animate(world_plot, "world_map.gif", title_frame =T, 
+             ani.width = 1600, ani.height = 820, dpi = 800, interval = .4)
+             
 ```
 
