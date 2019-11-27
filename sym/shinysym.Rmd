@@ -1,5 +1,5 @@
 ---
-title: "Shiny Dashboard"
+title: "Statistics By States"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -8,14 +8,39 @@ runtime: shiny
 ---
 
 ```{r}
+library(flexdashboard)
+library(tidyverse)
+library(viridis)
+library(plotly)
+```
+
+```{r}
+df = read_csv("../data/us_2017.csv") %>% filter(state != "District of Columbia")
+df$state = as.character(df$state) 
+
+clean_df =
+  df %>% 
+  pivot_longer(
+    2:26,
+    names_to = "types",
+    values_to = "ratio"
+  )
 
 ```
+
 
 
 Column {.sidebar}
 -----------------------------------------------------------------------
 
 ```{r}
+## selection choice set up
+variable_types = clean_df %>% distinct(types) %>% pull()
+
+selectInput(
+  "select_choice", 
+  label = h3("select choice"),
+  choices = variable_types, selected = "suicide_rate_per100000")
 
 ```
 
@@ -25,7 +50,24 @@ Column {data-width=650}
 ### Chart A
 
 ```{r}
+renderPlotly({ 
+  geo = list(
+        scope = 'usa',
+        projection =  list(type = 'albers usa'),
+        lakecolor = toRGB('white'))
 
+clean_df %>% 
+  filter(types == input$select_choice) %>% 
+  plot_geo() %>% 
+  add_trace(
+    z = ~ratio,
+    locations = state.abb, locationmode = 'USA-states',
+		# add text
+		text = ~paste(types, state.abb, sep = "")
+  ) %>% 
+  layout(geo = geo,
+         title = "US Map - State Statistics")
+})
 ```
 
 Column {data-width=350}
