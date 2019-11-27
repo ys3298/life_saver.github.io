@@ -204,5 +204,6 @@ us_2017 =
   left_join(temperature) %>% 
   select(-year) %>% 
   select(-Y85_larger)
+  
 
 write_csv(us_2017,"./data/us_2017.csv")
