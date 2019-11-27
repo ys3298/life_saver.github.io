@@ -12,20 +12,26 @@ library(flexdashboard)
 library(tidyverse)
 library(viridis)
 library(plotly)
+library(readxl)
 ```
 
 ```{r}
-df = read_csv("../data/us_2017.csv") %>% filter(state != "District of Columbia")
-df$state = as.character(df$state) 
+abb = read_excel("../data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
+
+df = read_csv("../data/us_2017.csv") %>% filter(state != "District of Columbia") %>% 
+  left_join(abb) 
+
+df$state = as.character(df$state)
+df$state_ab = as.character(df$state_ab) 
+df$number = order(df$state)
 
 clean_df =
   df %>% 
   pivot_longer(
     2:26,
     names_to = "types",
-    values_to = "ratio"
-  )
-
+    values_to = "ratio")
+  
 ```
 
 
@@ -42,9 +48,16 @@ selectInput(
   label = h3("select choice"),
   choices = variable_types, selected = "suicide_rate_per100000")
 
+## top n selection
+number = clean_df %>% distinct(number) %>% pull()
+
+selectInput(
+  "select_top_n", 
+  label = h3("Top n states"),
+  choices = number, selected = "50")
 ```
 
-Column {data-width=650}
+Column {data-width=550}
 -----------------------------------------------------------------------
 
 ### Chart A
@@ -56,31 +69,41 @@ renderPlotly({
         projection =  list(type = 'albers usa'),
         lakecolor = toRGB('white'))
 
-clean_df %>% 
-  filter(types == input$select_choice) %>% 
+  df = clean_df %>% 
+        filter(
+          types == input$select_choice
+        ) %>% 
+        arrange(ratio) %>%
+        top_n(as.numeric(input$select_top_n))
+  
+  print(df$state)
+  df %>%
   plot_geo() %>% 
   add_trace(
     z = ~ratio,
-    locations = state.abb, locationmode = 'USA-states',
+    locations = df$state_ab, locationmode = 'USA-states',
 		# add text
-		text = ~paste(types, state.abb, sep = "")
+		text = ~paste(types, df$state_ab, sep = "")
   ) %>% 
   layout(geo = geo,
          title = "US Map - State Statistics")
 })
 ```
 
-Column {data-width=350}
+Column {data-width=450}
 -----------------------------------------------------------------------
 
 ### Chart B
 
 ```{r}
+renderPlotly({ 
 
+  clean_df %>% 
+  filter(
+    types == input$select_choice) %>% 
+    arrange(ratio) %>% 
+    top_n(as.numeric(input$select_top_n)) %>% 
+      plot_ly(x = ~reorder(state,ratio), y = ~ratio, color = ~state, type = "bar")
+})
 ```
 
-### Chart C
-
-```{r}
-
-```
