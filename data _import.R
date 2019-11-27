@@ -202,6 +202,7 @@ us_2017 =
   left_join(gun) %>% 
   left_join(precipitation) %>% 
   left_join(temperature) %>% 
-  select(-year)
+  select(-year) %>% 
+  select(-Y85_larger)
 
 write_csv(us_2017,"./data/us_2017.csv")
