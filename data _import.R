@@ -212,7 +212,7 @@ names(us_2017) = c("State",
                    "Age 5-14","Age 15-14", "Age 25-34", "Age 35-44", "Age 45-54", "Age 55-64", "Age 65-74", "Age 75-84", "Age >85",
                    "Alcohol assumption", "Marijuana usage", 
                    "Advanced degree", "Bechelors degree", "College", "Below college degree",
-                   "GDP", "Guns number per capita(average)", "Guns number registered(average)", "Precipitation", "Temperatur"
+                   "GDP", "Guns number per capita(average)", "Guns number registered(average)", "Precipitation", "Temperature"
                    )
   
 

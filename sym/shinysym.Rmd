@@ -4,6 +4,7 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
+    source_code: embed
 runtime: shiny
 ---
 
@@ -18,7 +19,7 @@ library(readxl)
 ```{r}
 abb = read_excel("../data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
 
-df = read_csv("../data/us_2017.csv") %>% filter(state != "District of Columbia") %>% 
+df = read_csv("../data/us_2017.csv") %>% mutate(state = State) %>% filter(state != "District of Columbia") %>% 
   left_join(abb) 
 
 df$state = as.character(df$state)
@@ -34,7 +35,39 @@ clean_df =
   
 ```
 
+US suicide rate map
+=====================================
 
+Column {.sidebar}
+-----------------------------------------------------------------------
+```{r}
+
+```
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### US MAP
+```{r}
+
+```
+
+
+### Discription
+TODO
+
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### suicide number by year in US
+
+```{r}
+
+```
+
+
+State statistics by states
+=====================================
 
 Column {.sidebar}
 -----------------------------------------------------------------------
@@ -57,10 +90,10 @@ selectInput(
   choices = number, selected = "50")
 ```
 
-Column {data-width=550}
+Column {.tabset}
 -----------------------------------------------------------------------
 
-### Chart A
+### US map
 
 ```{r}
 renderPlotly({ 
@@ -90,10 +123,15 @@ renderPlotly({
 })
 ```
 
+
+### Discription
+Discribe TODO
+
+
 Column {data-width=450}
 -----------------------------------------------------------------------
 
-### Chart B
+### Bar plot
 
 ```{r}
 renderPlotly({ 
