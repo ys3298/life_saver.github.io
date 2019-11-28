@@ -14,6 +14,7 @@ library(tidyverse)
 library(viridis)
 library(plotly)
 library(readxl)
+library(ggplot2)
 ```
 ```{r}
 abb = read_excel("../data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
@@ -109,6 +110,14 @@ Column {data-width=450}
 
 ```{r}
 
+suicide_all = suicide %>% group_by(year) %>% summarise(rate = sum(rate))
+
+
+line = 
+  suicide_all %>%
+  ggplot(aes(x = year, y = rate)) + geom_point(color = "lightblue") + geom_line(color = "lightblue") + theme_bw()
+
+ggplotly(line)
 ```
 
 
