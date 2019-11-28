@@ -110,4 +110,15 @@ us_data %>%
     number.cex = .7)
 ```
 
+```{r}
+fit1 = lm(suicide ~.-state,data = us_data)
+summary(fit1)
+step(fit1)
 
+fit2 = lm(suicide ~ gun + temperature + marijuana + education +  gender +gdp, data = us_data)
+summary(fit2)
+anova(fit2)
+plot(fit2)
+
+```
+As the regression shows, "gun", "marijuana","education","gender","gdp" are significant predictors for suicide rate. 
