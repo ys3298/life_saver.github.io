@@ -15,10 +15,21 @@ library(viridis)
 library(plotly)
 library(readxl)
 ```
-
 ```{r}
 abb = read_excel("../data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
 
+suicide = read_excel("../data/suicide_age_gender.xlsx") %>% janitor::clean_names() %>% 
+  filter(state != "District of Columbia") %>% 
+  filter(is.na(ten_year_age_groups)) %>% 
+  drop_na(gender) %>% 
+  left_join(abb) %>% select(year, state_ab, state, gender, deaths, population) %>% 
+  mutate(rate = (deaths/population)*100000) %>% 
+  select(year, state_ab, gender, rate)
+
+suicide$state_ab = as.character(suicide$state_ab)
+```
+
+```{r}
 df = read_csv("../data/us_2017.csv") %>% mutate(state = State) %>% filter(state != "District of Columbia") %>% 
   left_join(abb) 
 
@@ -32,7 +43,6 @@ clean_df =
     2:26,
     names_to = "types",
     values_to = "ratio")
-  
 ```
 
 US suicide rate map
@@ -41,15 +51,51 @@ US suicide rate map
 Column {.sidebar}
 -----------------------------------------------------------------------
 ```{r}
+## selection year
+year = suicide %>% distinct(year) %>% pull()
 
+selectInput(
+  "select_year", 
+  label = h3("select year"),
+  choices = year, selected = "2007")
+
+## selection gender
+gender = suicide %>% distinct(gender) %>% pull()
+
+radioButtons(
+  "select_gender", 
+  label = h3("Choose gender"),
+  choices = gender, selected = "Female")
 ```
 
 Column {.tabset}
 -----------------------------------------------------------------------
 
-### US MAP
+### US map
 ```{r}
+renderPlotly({ 
+  geo = list(
+        scope = 'usa',
+        projection =  list(type = 'albers usa'),
+        lakecolor = toRGB('white'))
 
+  suicide_df = suicide %>% 
+        filter(
+          year == input$select_year,
+          gender == input$select_gender
+        ) 
+  
+  suicide_df %>%
+  plot_geo() %>% 
+  add_trace(
+    z = ~rate,
+    locations = suicide_df$state_ab, locationmode = 'USA-states',
+		# add text
+		text = ~paste(year, suicide_df$state_ab, sep = "")
+  ) %>% 
+  layout(geo = geo,
+         title = "Suicide rate in US")
+})
 ```
 
 
