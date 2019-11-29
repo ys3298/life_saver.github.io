@@ -1,104 +1,123 @@
 ---
-title: "scater plot"
-author: "Yue Lai"
+title: "Regression"
 output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(plotly)
 library(corrplot)
+library(ggpubr)
 ```
 
-## tidy data
-
-```{r}
-us_data = read_csv("../data/us_2017.csv") %>% 
-  filter(state != "District of Columbia") %>%  
+```{r, include = FALSE}
+# tidy data
+regression_data = read_csv("../data/us_2017.csv") %>%
+  janitor::clean_names() %>% 
+  filter(state != "District of Columbia") %>% 
   mutate(
-    suicide = suicide_rate_per100000,
-    gun = number_of_guns_per_capita,
-    alcohol = alcohol_consumption_per_capita_gallons,
-    temperature = mean_temperature_F, 
-    precipitation = precipitation_inches,
-    marijuana = marijuana_percentage * 100,
+    suicide = suicide_rate,
+    gun = guns_number_per_capita_average,
+    alcohol = alcohol_consumption,
+    marijuana = marijuana_usage * 100,
     education = (advanced_degree + bachelors_degree) * 100,
-    gender = male_ratio * 100
+    gender = male_proportion * 100
     ) %>% 
   select(state, suicide, gun, alcohol, temperature, precipitation, marijuana, education, gdp, gender) %>% 
   # replace missing value with mean value
   mutate(
     gun = replace_na(gun, mean(gun, na.rm = TRUE)),
     temperature = replace_na(temperature, mean(temperature, na.rm = TRUE)))
+
+write_csv(regression_data,"./regression_data.csv")
 ```
 
-## make scatter plot
+## Method
 
-```{r}
+Data from several sources were joined together into a merged dataset. We used 2017 year to build the model. Main outcome is suicide rate for each state, candidate predictors are gun, alchohol, temperature, precipitation, marijuana, education, gdp, gender for each state. 
+
+| Predictor  | Description   |
+| :------------------: | :----------------------------------------------------------------------------------: |
+| suicide  | Suicide rate per 100000 population  |
+| gun  | Number of guns per 1000 population  |
+| alcohol  | Alcohol consumption per capita (gallons of ethanol)|
+| temperature  | Average temperature (F)     |
+| precipitation |  Average precipitation (inches) |                         
+| marijuana  | Marijuana use in adults (%)
+| education    | Educational attainment - bachelor's degree or higher (%)   |
+| gdp    | GDP per capita (dollars)   |
+| gender    | Male (%))   |
+
+## Result
+
+### Scatter Plot
+
+```{r, echo = FALSE}
 # gun
-us_data %>% 
+gun_plot = 
+  regression_data %>% 
   ggplot(aes(x = gun, y = suicide)) +
-  geom_point() +
-  labs(x = "Number of guns per 1000 population", 
-       y = "Suicide rate per 100000 population")
+  geom_point() 
+# + labs(x = "Number of guns per 1000 population", y = "Suicide rate per 100000 population")
 
 # alcohol
-us_data %>% 
+alcohol_plot =
+  regression_data %>% 
   ggplot(aes(x = alcohol, y = suicide)) +
-  geom_point() +
-  labs(x = "Alcohol consumption per capita (gallons of ethanol)"， 
-       y = "Suicide rate per 100000 population")
+  geom_point() 
+# + labs(x = "Alcohol consumption per capita (gallons of ethanol)", y = "Suicide rate per 100000 population")
 
 # temperature
-us_data %>% 
+temp_plot =
+  regression_data %>% 
   ggplot(aes(x = temperature, y = suicide)) +
-  geom_point() +
-  labs(x = "Average temperature (F)", 
-       y = "Suicide rate per 100000 population")
+  geom_point() 
+# + labs(x = "Average temperature (F)", y = "Suicide rate per 100000 population")
+
+temp_ly = ggplotly(temp_plot)
 
 # precipitation
-us_data %>% 
+precip_plot =
+  regression_data %>% 
   ggplot(aes(x = precipitation, y = suicide)) +
-  geom_point() +
-  labs(x = "Average precipitation (inches)",
-       y = "Suicide rate per 100000 population")
+  geom_point() 
+# + labs(x = "Average precipitation (inches)", y = "Suicide rate per 100000 population")
 
 # marijuana
-us_data %>% 
+mari_plot =
+  regression_data %>% 
   ggplot(aes(x = marijuana, y = suicide)) +
-  geom_point() +
-  labs(x = "Marijuana use in adults (%)", 
-       y = "Suicide rate per 100000 population")
+  geom_point() 
+# + labs(x = "Marijuana use in adults (%)", y = "Suicide rate per 100000 population")
 
 # education
-us_data %>% 
+edu_plot =
+  regression_data %>% 
   ggplot(aes(x = education, y = suicide)) +
-  geom_point() +
-  labs(x = "Educational attainment - bachelor's degree or higher (%) ",
-       y = "Suicide rate per 100000 population")
+  geom_point() 
+# + labs(x = "Educational attainment - bachelor's degree or higher (%) ",y = "Suicide rate per 100000 population")
 
 # gdp
-us_data %>% 
+gdp_plot =
+  regression_data %>% 
   ggplot(aes(x = gdp, y = suicide)) +
-  geom_point() +
-  labs(x = "GDP per capita (dollars)",
-       y = "Suicide rate per 100000 population")
+  geom_point() 
+# + labs(x = "GDP per capita (dollars)", y = "Suicide rate per 100000 population")
 
 # gender
-us_data %>% 
+gender_plot = 
+  regression_data %>% 
   ggplot(aes(x = gender, y = suicide)) +
-  geom_point() +
-  labs(x = "Male (%)",
-       y = "Suicide rate per 100000 population")
+  geom_point() 
+# + labs(x = "Male (%)", y = "Suicide rate per 100000 population")
+                      
+ggarrange(gun_plot, alcohol_plot, temp_plot, precip_plot, mari_plot, edu_plot, gdp_plot, gender_plot, nrow = 3, ncol = 3) 
+```  
 
-# no data about average age 
-```
+### Correlation plot
 
-# make a correlation plot
-
-```{r}
-us_data %>% 
+```{r, echo = FALSE}
+regression_data %>% 
   select(-state) %>% 
   cor() %>% 
   corrplot(
@@ -110,15 +129,25 @@ us_data %>%
     number.cex = .7)
 ```
 
-```{r}
-fit1 = lm(suicide ~.-state,data = us_data)
+### Selected model of interest
+
+```{r, include = FALSE}
+fit1 = lm(suicide ~.-state,data = regression_data)
 summary(fit1)
 step(fit1)
-
-fit2 = lm(suicide ~ gun + temperature + marijuana + education +  gender +gdp, data = us_data)
-summary(fit2)
-anova(fit2)
-plot(fit2)
-
 ```
-As the regression shows, "gun", "marijuana","education","gender","gdp" are significant predictors for suicide rate. 
+
+```{r, echo = FALSE}
+fit2 = lm(suicide ~ gun + temperature + marijuana + education +  gender +gdp, data = regression_data)
+fit2 %>% 
+  broom::tidy() %>% 
+  select(term, estimate, p.value) %>% 
+  knitr::kable(digits = 4)
+
+fit2 %>% 
+  broom::glance() %>% 
+  select(r.squared, adj.r.squared, AIC, BIC) %>% 
+  knitr::kable(digits = 4)
+```
+
+We used stepwise regression to choice the predictors. As the results shows, "gun", "marijuana","education","gender","gdp" are significant predictors for suicide rate. 
