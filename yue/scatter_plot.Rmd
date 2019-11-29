@@ -1,6 +1,9 @@
 ---
-title: "Regression"
-output: github_document
+title: "Regression Analysis"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
