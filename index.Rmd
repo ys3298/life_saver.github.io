@@ -2,6 +2,6 @@
 title: "The Suicide Rate Project"
 ---
 
-### I have a webpage!
-
-And I can put all kinds of stuff on it!
+<center>
+<img src="figures/1920_dan-meyers-hluojzjlvxc-unsplash-947520.jpg" style="width:80%" class="center">
+</center>

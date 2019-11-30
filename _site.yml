@@ -13,6 +13,10 @@ navbar:
       href: about.html
     - text: "Report"
       href: about.html
+    - icon: fa-github fa-lg
+      href: https://github.com/ys3298/life_saver.github.io
+    - icon: fa-envelope fa-lg
+      href: mailto:<ys3298@cumc.columbia.edu.com>
 output:
   html_document:
     theme: journal
