@@ -127,7 +127,7 @@ regression_data %>%
     tl.col = "black", 
     tl.cex = .8, 
     addCoef.col = "black",
-    order = "AOE",
+    order = c("original"),
     method = "color",
     number.cex = .7)
 ```
@@ -153,7 +153,7 @@ fit2 %>%
   knitr::kable(digits = 4)
 ```
 
-The fitted equation is "suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp". As the regression shows, "gun", "marijuana","education","gender","gdp" are significant predictors for suicide rate. Adjusted R-squre is 0.8124, which means these variables can explain large proportion of variance in Y. According to the results, suicide rate is larger in states where have a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment.   
+The fitted equation is "suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp". As the regression shows, "gun", "marijuana","education","gender","gdp" are significant predictors for suicide rate. Adjusted R-square is 0.8124, which means these variables can explain a large proportion of variance in the suicide rate. According to the results, suicide rate is larger in states where have a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment.   
 
 
 
