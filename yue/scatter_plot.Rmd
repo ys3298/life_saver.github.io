@@ -37,7 +37,7 @@ write_csv(regression_data,"./regression_data.csv")
 
 ## Method
 
-Data from several sources were joined together into a merged dataset. We used 2017 year to build the model. Main outcome is suicide rate for each state, candidate predictors are gun, alchohol, temperature, precipitation, marijuana, education, gdp, gender for each state. 
+Data from several sources were joined together into a merged dataset. We used 2017 year to build the model. Main outcome is suicide rate for each state, candidate predictors are gun, alchohol, temperature, precipitation, marijuana, education, gdp and gender for each state. We used stepwise approach to select model. 
 
 | Predictor  | Description   |
 | :------------------: | :----------------------------------------------------------------------------------: |
@@ -49,9 +49,9 @@ Data from several sources were joined together into a merged dataset. We used 20
 | marijuana  | Marijuana use in adults (%)
 | education    | Educational attainment - bachelor's degree or higher (%)   |
 | gdp    | GDP per capita (dollars)   |
-| gender    | Male (%))   |
+| gender    | Male (%)   |
 
-## Result
+## Results
 
 ### Scatter Plot
 
@@ -141,7 +141,7 @@ step(fit1)
 ```
 
 ```{r, echo = FALSE}
-fit2 = lm(suicide ~ gun + temperature + marijuana + education +  gender +gdp, data = regression_data)
+fit2 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data)
 fit2 %>% 
   broom::tidy() %>% 
   select(term, estimate, p.value) %>% 
@@ -153,4 +153,8 @@ fit2 %>%
   knitr::kable(digits = 4)
 ```
 
-We used stepwise regression to choice the predictors. As the results shows, "gun", "marijuana","education","gender","gdp" are significant predictors for suicide rate. 
+The fitted equation is "suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp". As the regression shows, "gun", "marijuana","education","gender","gdp" are significant predictors for suicide rate. Adjusted R-squre is 0.8124, which means these variables can explain large proportion of variance in Y. According to the results, suicide rate is larger in states where have a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment.   
+
+
+
+
