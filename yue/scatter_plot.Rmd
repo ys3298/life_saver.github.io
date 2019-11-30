@@ -151,9 +151,12 @@ fit2 %>%
   broom::glance() %>% 
   select(r.squared, adj.r.squared, AIC, BIC) %>% 
   knitr::kable(digits = 4)
+```
 
+
+```{r, include= FALSE}
 # model diagnosis
-par(mfrow=c(2,2))
+par(mfrow = c(2,2))
 plot(fit2)
 # Basically, the residual assumptions are satisfied.
 ```
