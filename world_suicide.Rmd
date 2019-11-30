@@ -1,0 +1,27 @@
+---
+title: "World Suicide Rate"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# World Suicide Change map
+![](world_map.gif)
+
+# World Totcal Suicide Change
+<center>
+<img src="sibei/global_trend.jpg" style="width:65%" class="center">
+</center>
+
+
+# World Total Suicide Change by Gender
+<center>
+<img src="sibei/global_trend_bysex.jpg" style="width:90%" class="center">
+</center>
+
+
+# World Total Suicide Change by Age
+<center>
+<img src="sibei/age_trend_global.gif" style="width:50%">
+</center>
