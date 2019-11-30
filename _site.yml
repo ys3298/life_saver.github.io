@@ -8,9 +8,9 @@ navbar:
       - text: "Worldwide"
         href: world_suicide.html
       - text: "USA"
-        href: shinysym.html 
+        href: state_plots.html 
     - text: "Regression"
-      href: about.html
+      href: scatter_plot.html
     - text: "Report"
       href: about.html
     - icon: fa-github fa-lg

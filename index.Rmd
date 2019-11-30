@@ -3,5 +3,5 @@ title: "The Suicide Rate Project"
 ---
 
 <center>
-<img src="figures/1920_dan-meyers-hluojzjlvxc-unsplash-947520.jpg" style="width:80%" class="center">
+<img src="figures/suicide-among-nurses-might-hurt-us.png" style="width:70%" class="center">
 </center>
