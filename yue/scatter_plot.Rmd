@@ -151,6 +151,11 @@ fit2 %>%
   broom::glance() %>% 
   select(r.squared, adj.r.squared, AIC, BIC) %>% 
   knitr::kable(digits = 4)
+
+# model diagnosis
+par(mfrow=c(2,2))
+plot(fit2)
+# Basically, the residual assumptions are satisfied.
 ```
 
 The fitted equation is "suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp". As the regression shows, "gun", "marijuana","education","gender","gdp" are significant predictors for suicide rate. Adjusted R-square is 0.8124, which means these variables can explain a large proportion of variance in the suicide rate. According to the results, suicide rate is larger in states where have a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment.   
