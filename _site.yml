@@ -8,7 +8,7 @@ navbar:
       - text: "Worldwide"
         href: world_suicide.html
       - text: "USA"
-        href: state_plots.html 
+        href: https://statesplots.shinyapps.io/shinyapp/
     - text: "Regression"
       href: scatter_plot.html
     - text: "Report"

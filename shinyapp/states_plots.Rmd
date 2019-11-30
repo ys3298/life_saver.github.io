@@ -19,9 +19,9 @@ library(ggplot2)
 ```
 
 ```{r}
-abb = read_excel("./data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
+abb = read_excel("../data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
 
-suicide = read_excel("./data/suicide_age_gender.xlsx") %>% janitor::clean_names() %>% 
+suicide = read_excel("../data/suicide_age_gender.xlsx") %>% janitor::clean_names() %>% 
   filter(state != "District of Columbia") %>% 
   filter(is.na(ten_year_age_groups)) %>% 
   drop_na(gender) %>% 
@@ -33,7 +33,7 @@ suicide$state_ab = as.character(suicide$state_ab)
 ```
 
 ```{r}
-df = read_csv("./data/us_2017.csv") %>% mutate(state = State) %>% filter(state != "District of Columbia") %>% 
+df = read_csv("../data/us_2017.csv") %>% mutate(state = State) %>% filter(state != "District of Columbia") %>% 
   left_join(abb) 
 
 df$state = as.character(df$state)
@@ -269,4 +269,12 @@ renderPlotly({
 })
 ```
 
+```{r}
+rsconnect::setAccountInfo(name='statesplots', token='E291A6311ACEA14D86804366C6AEBB73', secret='ocwzRKcFshocnAopVDQru4G3aG7gLkH/Vz4zdJ7L')
+
+
+
+library(rsconnect)
+rsconnect::deployApp('../shinyapp')
+```
 
