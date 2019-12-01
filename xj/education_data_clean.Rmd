@@ -21,3 +21,6 @@ edu <-
 write_csv(edu,"./data/edu_2017.csv")
 ```
 
+The raw dataset contain educational attainment information of aech state in 2000, 2012 and 2017 and we only focus on data from 2017. We select 4 key variables, including share of population with `advanced degree`, `bachelor's degree`, `associate's or some college`, and `high school or less`. To clarify the year of information, we add a `year` column. 
+
+
