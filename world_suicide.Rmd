@@ -59,7 +59,7 @@ According to WHO, about 800,000 people died by suicide in 2016, of which 79% occ
 
 # World Total Suicide Change by Age
 <center>
-<img src="sibei/age_trend_global2.gif" style="width:60%">
+<img src="sibei/age_trend_global2.gif" style="width:62%">
 </center>
 <i><b>Findings</b></i>
 <ul>
