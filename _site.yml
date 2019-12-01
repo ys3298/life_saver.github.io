@@ -12,7 +12,7 @@ navbar:
     - text: "Regression"
       href: scatter_plot.html
     - text: "Report"
-      href: about.html
+      href: report.html
     - icon: fa-github fa-lg
       href: https://github.com/ys3298/life_saver.github.io
     - icon: fa-envelope fa-lg

@@ -12,7 +12,7 @@
 
 
 
-<title>The Suicide Rate Project</title>
+<title>Final report</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -250,6 +253,63 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -257,6 +317,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -318,18 +388,50 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">The Suicide Rate Project</h1>
+<h1 class="title toc-ignore">Final report</h1>
 
 </div>
 
 
-<center>
-<img src="figures/IMG_0512.jpg" style="width:100%" class="center">
-</center>
-<p><br> </br> <i class="fa fa-camera" style="font-size:24px"></i> <font color="black" size="+1">Screen recording: Introduction of the project</font></p>
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<div id="some-facts-about-suicide" class="section level2">
+<h2>Some facts about suicide</h2>
+<ul>
+<li><p>About 800,000 people died by suicide in global every year, which accounts for 1.4% of all deaths worldwide.</p></li>
+<li><p>The annual U.S. suicide rate increased 10% between 2014 and 2017 according to the CDC’s NCHS</p></li>
+<li><p>In 2015, suicide has become the second leading cause of death among 15-34 age group and the third leading cause of death between the ages of 10-14 in the USA.</p></li>
+<li><p>It is reported that in 2016 suicide was the 10th leading cause of death in the U.S., imposing a cost of $69 billion to the US annually.</p></li>
+</ul>
+<p>On the one hand, almost all the risk factors for the suicide are preventable. Usually, people are not aware of the risk factors of suicide and situate themselves in the dangerous environment. We believe that a better understanding of potential risk factors is essential for the prevention of suicide.</p>
+<p>On the other hand, the suicide rate in the USA increases overtime while it decrease in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.</p>
+</div>
+<div id="goal-of-our-project" class="section level2">
+<h2>Goal of our project</h2>
+<ul>
+<li><p>Understanding risk factors for suicide</p></li>
+<li><p>Visualizing correlations of these risk factors with suicide</p></li>
+<li><p>Visualizing the distribution of risk factors and suicide in the U.S.</p></li>
+</ul>
+</div>
+</div>
+<div id="related-work" class="section level1">
+<h1>Related Work</h1>
+</div>
+<div id="initial-question" class="section level1">
+<h1>Initial Question</h1>
+<p>We aim to examine the risk factor for suicide and suicide rate in the USA. We want to visualize the association and data in innovative and interactive way. As stated above, our questions are as follows:</p>
+<ul>
+<li><p>What are potential risk factors for suicide? How could we visualize the association between these factors and suicide rate?</p></li>
+<li><p>How could we use shiny to visualize the distribution of risk factors and suicide rate in the USA?</p></li>
+<li><p>Could the model be generalized to other regions? How can we predict suicide rate using the constructed model?</p></li>
+</ul>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -362,6 +464,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
