@@ -80,4 +80,13 @@ g=ggplot(data_age,aes(year, suicide_per100k , color = age)) +
 animate(g, duration = 5, fps = 20, width = 400, height = 400, renderer = gifski_renderer())
 anim_save("age_trend_global.gif",path="./sibei")
 
+h=ggplot(data_age,aes(year, suicide_per100k , color = age))+
+  geom_line(stat = "identity") +
+  theme_set(theme_minimal() + theme(legend.position = "bottom"))+
+  labs(title = "Suicide rate change by Age", 
+       x = "Year", 
+       y = "Suicides per 100k") + scale_x_continuous(breaks = seq(1986, 2016, 6))+ transition_reveal(year)
+
+animate(h, duration = 5, fps = 20, width = 400, height = 400, renderer = gifski_renderer())
+anim_save("age_trend_global2.gif",path="./sibei")
 
