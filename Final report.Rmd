@@ -1,0 +1,42 @@
+---
+title: "Final Report"
+output: github_document
+---
+
+## Introduction
+
+### Motivation
+
+
+### Initial Questions
+
+
+### Goal of the project
+
+
+
+
+## Tidy the Data
+
+### Data Import
+
+### Data Cleaning
+
+### Final Dataset
+
+
+
+## Subanalyses
+
+### World-level insight
+
+### US-level insight
+
+## Regression Analysis
+
+
+
+## Discussion 
+
+
+
