@@ -5,6 +5,7 @@ output:
     orientation: columns
     vertical_layout: fill
     source_code: embed
+    theme: journal
 runtime: shiny
 ---
 
@@ -266,4 +267,5 @@ renderPlotly({
       plot_ly(x = ~reorder(state,ratio), y = ~ratio, color = ~state, type = "bar")
 })
 ```
+
 
