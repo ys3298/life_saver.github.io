@@ -5,21 +5,25 @@ output:
     toc: true
     toc_float: true
 ---
+<br>
+</br>
+<br>
+</br>
 
-
+According to WHO, about 800,000 people died by suicide in 2016, of which 79% occurred in low- and middle-income countries. Overall, suicide accounts for 1.4% of all deaths worldwide, and has become the second leading cause of death among 15-29 age group. 
 <br>
 </br>
 
 # World Suicide Change map
 ![](world_map.gif)
-<center>
+
 <i><b>Findings</b></i>
 <ul>
 <li>In the time period, most countries's suicide rates didn't have dramatic change. </li>
 <li>In Russia, an obvious change in suicide rate can be observed. From 1990 to 1999, an increase was shown, as the color got lighter. From 2010-2016, there was a noticable decrease, with heavier color showing up.</li>
 <li>The suicide rate in Sourth American stayed in low position during 1985-2016</li>
 </ul>
-</center>
+
 <br>
 </br>
 

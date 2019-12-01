@@ -3,5 +3,9 @@ title: "The Suicide Rate Project"
 ---
 
 <center>
-<img src="figures/suicide-among-nurses-might-hurt-us.png" style="width:70%" class="center">
+<img src="figures/suicide-among-nurses-might-hurt-us.png" style="width:60%" class="center">
 </center>
+
+<br>
+</br>
+<i class="fa fa-camera" style="font-size:24px"></i> <font color="black" size="+1">Screen recording: Introduction of the project</font>
