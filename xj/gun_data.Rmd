@@ -31,3 +31,8 @@ gun_2017 =
 write_csv(gun_2017,"./data/gun_2017.csv")
 ```
 
+The dataset is based on 2017 gun registration statistics from the ATF, containing 
+data on number of guns per capita and total guns registered of each state in 2017.
+We extract this table from web and add a `year` column to clarify the time. 
+ 
+

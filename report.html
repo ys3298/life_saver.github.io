@@ -12,7 +12,7 @@
 
 
 
-<title>Regression Analysis</title>
+<title>Final report</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -394,139 +394,44 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Regression Analysis</h1>
+<h1 class="title toc-ignore">Final report</h1>
 
 </div>
 
 
-<div id="method" class="section level2">
-<h2>Method</h2>
-<p>Data from several sources were joined together into a merged dataset. We used 2017 year to build the model. Main outcome is suicide rate for each state, candidate predictors are gun, alchohol, temperature, precipitation, marijuana, education, gdp and gender for each state. We used stepwise approach to select model.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">Predictor</th>
-<th align="center">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">suicide</td>
-<td align="center">Suicide rate per 100000 population</td>
-</tr>
-<tr class="even">
-<td align="center">gun</td>
-<td align="center">Number of guns per 1000 population</td>
-</tr>
-<tr class="odd">
-<td align="center">alcohol</td>
-<td align="center">Alcohol consumption per capita (gallons of ethanol)</td>
-</tr>
-<tr class="even">
-<td align="center">temperature</td>
-<td align="center">Average temperature (F)</td>
-</tr>
-<tr class="odd">
-<td align="center">precipitation</td>
-<td align="center">Average precipitation (inches)</td>
-</tr>
-<tr class="even">
-<td align="center">marijuana</td>
-<td align="center">Marijuana use in adults (%)</td>
-</tr>
-<tr class="odd">
-<td align="center">education</td>
-<td align="center">Educational attainment - bachelor’s degree or higher (%)</td>
-</tr>
-<tr class="even">
-<td align="center">gdp</td>
-<td align="center">GDP per capita (dollars)</td>
-</tr>
-<tr class="odd">
-<td align="center">gender</td>
-<td align="center">Male (%)</td>
-</tr>
-</tbody>
-</table>
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<div id="some-facts-about-suicide" class="section level2">
+<h2>Some facts about suicide</h2>
+<ul>
+<li><p>About 800,000 people died by suicide in global every year, which accounts for 1.4% of all deaths worldwide.</p></li>
+<li><p>The annual U.S. suicide rate increased 10% between 2014 and 2017 according to the CDC’s NCHS</p></li>
+<li><p>In 2015, suicide has become the second leading cause of death among 15-34 age group and the third leading cause of death between the ages of 10-14 in the USA.</p></li>
+<li><p>It is reported that in 2016 suicide was the 10th leading cause of death in the U.S., imposing a cost of $69 billion to the US annually.</p></li>
+</ul>
+<p>On the one hand, almost all the risk factors for the suicide are preventable. Usually, people are not aware of the risk factors of suicide and situate themselves in the dangerous environment. We believe that a better understanding of potential risk factors is essential for the prevention of suicide.</p>
+<p>On the other hand, the suicide rate in the USA increases overtime while it decrease in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.</p>
 </div>
-<div id="results" class="section level2">
-<h2>Results</h2>
-<div id="scatter-plot" class="section level3">
-<h3>Scatter Plot</h3>
-<p><img src="scatter_plot_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div id="goal-of-our-project" class="section level2">
+<h2>Goal of our project</h2>
+<ul>
+<li><p>Understanding risk factors for suicide</p></li>
+<li><p>Visualizing correlations of these risk factors with suicide</p></li>
+<li><p>Visualizing the distribution of risk factors and suicide in the U.S.</p></li>
+</ul>
 </div>
-<div id="correlation-plot" class="section level3">
-<h3>Correlation plot</h3>
-<p><img src="scatter_plot_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
-<div id="selected-model-of-interest" class="section level3">
-<h3>Selected model of interest</h3>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">-143.9870</td>
-<td align="right">0.0000</td>
-</tr>
-<tr class="even">
-<td align="left">gun</td>
-<td align="right">0.1220</td>
-<td align="right">0.0007</td>
-</tr>
-<tr class="odd">
-<td align="left">temperature</td>
-<td align="right">-0.0955</td>
-<td align="right">0.0502</td>
-</tr>
-<tr class="even">
-<td align="left">marijuana</td>
-<td align="right">0.2485</td>
-<td align="right">0.0038</td>
-</tr>
-<tr class="odd">
-<td align="left">education</td>
-<td align="right">-0.2343</td>
-<td align="right">0.0085</td>
-</tr>
-<tr class="even">
-<td align="left">gender</td>
-<td align="right">3.5589</td>
-<td align="right">0.0000</td>
-</tr>
-<tr class="odd">
-<td align="left">gdp</td>
-<td align="right">-0.0002</td>
-<td align="right">0.0004</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th align="right">r.squared</th>
-<th align="right">adj.r.squared</th>
-<th align="right">AIC</th>
-<th align="right">BIC</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">0.8354</td>
-<td align="right">0.8124</td>
-<td align="right">220.9604</td>
-<td align="right">236.2566</td>
-</tr>
-</tbody>
-</table>
-<p>The fitted equation is “suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp”. As the regression shows, “gun”, “marijuana”,“education”,“gender”,“gdp” are significant predictors for suicide rate. Adjusted R-square is 0.8124, which means these variables can explain a large proportion of variance in the suicide rate. According to the results, suicide rate is larger in states where have a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment.</p>
+<div id="related-work" class="section level1">
+<h1>Related Work</h1>
 </div>
+<div id="initial-question" class="section level1">
+<h1>Initial Question</h1>
+<p>We aim to examine the risk factor for suicide and suicide rate in the USA. We want to visualize the association and data in innovative and interactive way. As stated above, our questions are as follows:</p>
+<ul>
+<li><p>What are potential risk factors for suicide? How could we visualize the association between these factors and suicide rate?</p></li>
+<li><p>How could we use shiny to visualize the distribution of risk factors and suicide rate in the USA?</p></li>
+<li><p>Could the model be generalized to other regions? How can we predict suicide rate using the constructed model?</p></li>
+</ul>
 </div>
 
 

@@ -1,0 +1,48 @@
+---
+title: "Final report"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+
+# Motivation
+
+## Some facts about suicide
+
+* About 800,000 people died by suicide in global every year, which accounts for 1.4% of all deaths worldwide.
+
+* The annual U.S. suicide rate increased 10% between 2014 and 2017 according to the CDC’s NCHS
+
+* In 2015, suicide has become the second leading cause of death among 15-34 age group and the third leading cause of death between the ages of 10-14 in the USA.
+
+* It is reported that in 2016 suicide was the 10th leading cause of death in the U.S., imposing a cost of $69 billion to the US annually.
+
+
+On the one hand, almost all the risk factors for the suicide are preventable. Usually, people are not aware of the risk factors of suicide and situate themselves in the dangerous environment. We believe that a better understanding of potential risk factors is essential for the prevention of suicide.
+
+On the other hand, the suicide rate in the USA increases overtime while it decrease in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.
+
+## Goal of our project
+
+* Understanding risk factors for suicide
+
+* Visualizing correlations of these risk factors with suicide
+
+* Visualizing the distribution of risk factors and suicide in the U.S.
+
+
+# Related Work
+
+
+
+# Initial Question
+
+We aim to examine the risk factor for suicide and suicide rate in the USA. We want to visualize the association and data in innovative and interactive way. As stated above, our questions are as follows:
+
+* What are potential risk factors for suicide? How could we visualize the association between these factors and suicide rate?
+
+* How could we use shiny to visualize the distribution of risk factors and suicide rate in the USA?
+
+* Could the model be generalized to other regions? How can we predict suicide rate using the constructed model?
