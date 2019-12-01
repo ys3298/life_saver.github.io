@@ -351,6 +351,33 @@ $(document).ready(function () {
 </div>
 <div id="final-dataset" class="section level3">
 <h3>Final Dataset</h3>
+<p>After we collecting data from different sources, we constructed a <a href="./data/US_2017.csv">merged dataset</a> collecting multiple protential risk factors for suicide rate in different states in US, here is the discriptions:</p>
+<p><strong>Suicide rate (2017)</strong>: The number of suicide deaths cases per 100000 people in 2017.</p>
+<p><strong>Female proportion (2017)</strong>: The proportion of Female in 2017.</p>
+<p><strong>Male proportion (2017)</strong>: The proportion of Male in 2017.</p>
+<p><strong>Female Suicide rate (2017)</strong>: The number of female suicide deaths cases per 100000 females in 2017.</p>
+<p><strong>Male Suicide rate (2017)</strong>: The number of male suicide deaths cases per 100000 males in 2017.</p>
+<p><strong>Age 5-14 (2017)</strong>: The proportion of people between age 5-14 in 2017.</p>
+<p><strong>Age 15-24 (2017)</strong>: The proportion of people between age 15-24 in 2017.</p>
+<p><strong>Age 25-34 (2017)</strong>: The proportion of people between age 25-34 in 2017.</p>
+<p><strong>Age 35-44 (2017)</strong>: The proportion of people between age 35-44 in 2017.</p>
+<p><strong>Age 45-54 (2017)</strong>: The proportion of people between age 45-54 in 2017.</p>
+<p><strong>Age 55-64 (2017)</strong>: The proportion of people between age 55-64 in 2017.</p>
+<p><strong>Age 65-74 (2017)</strong>: The proportion of people between age 65-74 in 2017.</p>
+<p><strong>Age 75-84 (2017)</strong>: The proportion of people between age 75-84 in 2017.</p>
+<p><strong>Age &gt;85 (2017)</strong>: The proportion of people between age over 85 in 2017.</p>
+<p><strong>Alcohol consumption (2017)</strong>: Alcohol consumption per capita in gallons in 2017.</p>
+<p><strong>Marijuana usage (2017)</strong>: Marijuana users percentage in 2017.</p>
+<p><strong>Advanced degree (2017)</strong>: The proportion of people who have advanced degree in 2017.</p>
+<p><strong>Bachelors degree(2017)</strong>: The proportion of people who have Bachelors degree in 2017.</p>
+<p><strong>College degree (2017)</strong>: The proportion of people who have College degree in 2017.</p>
+<p><strong>Below college degree (2017)</strong>: The proportion of people who have below college degree in 2017.</p>
+<p><strong>GDP (2017)</strong>: Gross Domestic Product in 2017.</p>
+<p><strong>Guns number per capita (2017)</strong>: Averaged guns number per capita in 2017.</p>
+<p><strong>Guns number registered (2017)</strong>: Averaged guns number registered in 2017</p>
+<p><strong>Precipitation</strong>: Averaged Precipitation in inches.</p>
+<p><strong>Temperature</strong>: Averaged Temperature in F.</p>
+<p>Another dataset we used is <a href="./data/suicide_age_gender.xlsx">worldwild suicide distribution dataset</a> from 1999 to 2017. In this dataset, we have information about number of suicide cases in different year, country, gender and age groups and the population in each groups. Using this dataset, we can analyze how suicide cases change worldwild in time and how suicide cases distributed in different gender and age groups.</p>
 </div>
 </div>
 <div id="subanalyses" class="section level2">
@@ -360,6 +387,9 @@ $(document).ready(function () {
 </div>
 <div id="us-level-insight" class="section level3">
 <h3>US-level insight</h3>
+<p>To show how the suicide cases distributed in different states, we made a Crude Suicide Rate map allowing users to toggle between different years (1999-2017) and choose gender, demonstrating the changes in suicide rate over time and visualize regional differences across the U.S. The map demonstrates that there are significant changes over time and gender.</p>
+<p>The line plot we made is to show the change of total suicide rate by year in US. We can see a stable increase by year and the truth that there are much more cases of suicide in male than in female.</p>
+<p>To show the distribution of the risk factors, we construct a US map allowing users to choose the types of variables, visualizing regional differences across the U.S and a bar plot showing the intuitive number in different states. Users are also allowed to choose TOP n states they want to explore in both plots.</p>
 </div>
 </div>
 <div id="regression-analysis" class="section level2">
