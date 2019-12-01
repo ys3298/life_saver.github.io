@@ -3,7 +3,7 @@ title: "The Suicide Rate Project"
 ---
 
 <center>
-<img src="figures/suicide-among-nurses-might-hurt-us.png" style="width:60%" class="center">
+<img src="figures/IMG_0512.jpg" style="width:100%" class="center">
 </center>
 
 <br>
