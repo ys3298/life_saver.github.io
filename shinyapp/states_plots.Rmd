@@ -1,0 +1,280 @@
+---
+title: "Statistics By States"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+    theme: journal
+runtime: shiny
+---
+
+```{r}
+library(flexdashboard)
+library(tidyverse)
+library(viridis)
+library(plotly)
+library(readxl)
+library(ggplot2)
+```
+
+```{r}
+abb = read_excel("../data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
+
+suicide = read_excel("../data/suicide_age_gender.xlsx") %>% janitor::clean_names() %>% 
+  filter(state != "District of Columbia") %>% 
+  filter(is.na(ten_year_age_groups)) %>% 
+  drop_na(gender) %>% 
+  left_join(abb) %>% select(year, state_ab, state, gender, deaths, population) %>% 
+  mutate(rate = (deaths/population)*100000) %>% 
+  select(year, state_ab, gender, rate)
+
+suicide$state_ab = as.character(suicide$state_ab)
+```
+
+```{r}
+df = read_csv("../data/us_2017.csv") %>% mutate(state = State) %>% filter(state != "District of Columbia") %>% 
+  left_join(abb) 
+
+df$state = as.character(df$state)
+df$state_ab = as.character(df$state_ab) 
+df$number = order(df$state)
+
+clean_df =
+  df %>% 
+  pivot_longer(
+    2:26,
+    names_to = "types",
+    values_to = "ratio")
+```
+
+US suicide rate map
+=====================================
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+```{r}
+## selection year
+year = suicide %>% distinct(year) %>% pull()
+
+selectInput(
+  "select_year", 
+  label = h3("select year"),
+  choices = year, selected = "2007")
+
+## selection gender
+gender = suicide %>% distinct(gender) %>% pull()
+
+radioButtons(
+  "select_gender", 
+  label = h3("Choose gender"),
+  choices = gender, selected = "Female")
+```
+
+(See description page for more information.)
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### US map
+```{r}
+renderPlotly({ 
+  geo = list(
+        scope = 'usa',
+        projection =  list(type = 'albers usa'),
+        lakecolor = toRGB('white'))
+
+  suicide_df = suicide %>% 
+        filter(
+          year == input$select_year,
+          gender == input$select_gender
+        ) 
+  
+  suicide_df %>%
+  plot_geo() %>% 
+  add_trace(
+    z = ~rate,
+    locations = suicide_df$state_ab, locationmode = 'USA-states',
+    # add text
+		text = ~paste(year, suicide_df$state_ab, sep = "")
+  ) %>% 
+  layout(geo = geo,
+         title = "Suicide rate in US")
+})
+```
+
+
+### Discription
+
+The Crude Suicide Rate map allows users to toggle between different years (1999-2017) and choose gender, demonstrating the changes in suicide rate over time and visualize regional differences across the U.S. The map demonstrates that there are significant changes over time and gender. 
+
+The line plot on the right shows the change of total suicide rate by year in US. We can see a stable increase by year.
+
+**Suicide Rate**: The number of suicide deaths cases per 100000 people.
+
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### suicide number by year in US
+
+```{r}
+
+suicide_all = suicide %>% group_by(year,gender) %>% summarise(rate = sum(rate))
+
+
+line = 
+  suicide_all %>%
+  ggplot(aes(x = year, y = rate)) + geom_point(aes(color = gender)) + geom_line(aes(color = gender)) + theme_bw()
+
+ggplotly(line)
+```
+
+
+State statistics by states
+=====================================
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+## selection choice set up
+variable_types = clean_df %>% distinct(types) %>% pull()
+
+selectInput(
+  "select_choice", 
+  label = h3("select choice"),
+  choices = variable_types, selected = "suicide_rate_per100000")
+
+## top n selection
+number = clean_df %>% distinct(number) %>% pull()
+
+selectInput(
+  "select_top_n", 
+  label = h3("Top n states"),
+  choices = number, selected = "50")
+```
+
+(See description page for more information.)
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### US map
+
+```{r}
+renderPlotly({ 
+  geo = list(
+        scope = 'usa',
+        projection =  list(type = 'albers usa'),
+        lakecolor = toRGB('white'))
+
+  df = clean_df %>% 
+        filter(
+          types == input$select_choice
+        ) %>% 
+        arrange(ratio) %>%
+        top_n(as.numeric(input$select_top_n))
+  
+  print(df$state)
+  df %>%
+  plot_geo() %>% 
+  add_trace(
+    z = ~ratio,
+    locations = df$state_ab, locationmode = 'USA-states',
+		# add text
+		text = ~paste(types, df$state_ab, sep = "")
+  ) %>% 
+  layout(geo = geo,
+         title = "US Map - State Statistics")
+})
+```
+
+
+### Discription
+
+The **US map** allows users to choose the types of variables, visualizing regional differences across the U.S.  
+
+The **bar plot** shows the intuitive number in different states.
+
+Users are also allowed to choose **TOP n states** they want to explore in both plots.
+
+The map includes visualization of distributions of the following **variables**: 
+
+**Suicide rate (2017)**: The number of suicide deaths cases per 100000 people.
+
+**Female proportion (2017)**: The proportion of Female.
+
+**Male proportion (2017)**: The proportion of Male.
+
+**Female Suicide rate (2017)**: The number of female suicide deaths cases per 100000 females.
+
+**Male Suicide rate (2017)**: The number of male suicide deaths cases per 100000 males.
+
+**Age 5-14 (2017)**: The proportion of people between age 5-14.
+
+**Age 15-24 (2017)**: The proportion of people between age 15-24.
+
+**Age 25-34 (2017)**: The proportion of people between age 25-34.
+
+**Age 35-44 (2017)**: The proportion of people between age 35-44.
+
+**Age 45-54 (2017)**: The proportion of people between age 45-54.
+
+**Age 55-64 (2017)**: The proportion of people between age 55-64.
+
+**Age 65-74 (2017)**: The proportion of people between age 65-74.
+
+**Age 75-84 (2017)**: The proportion of people between age 75-84.
+
+**Age >85 (2017)**: The proportion of people between age over 85.
+
+**Alcohol consumption (2017)**: Alcohol consumption per capita in gallons
+
+**Marijuana usage (2017)**: Marijuana users percentage.
+
+**Advanced degree (2017)**: The proportion of people who have advanced degree.
+
+**Bachelors degree(2017)**: The proportion of people who have Bachelors degree.
+
+**College degree (2017)**: The proportion of people who have College degree.
+
+**Below college degree (2017)**: The proportion of people who have below college degree.
+
+**GDP (2017)**: Gross Domestic Product.
+
+**Guns number per capita (2017)**: Averaged guns number per capita.
+
+**Guns number registered (2017)**: Averaged guns number registered
+
+**Precipitation**: Averaged Precipitation in inches.
+
+**Temperature**: Averaged Temperature in F.
+
+
+
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### Bar plot
+
+```{r}
+renderPlotly({ 
+
+  clean_df %>% 
+  filter(
+    types == input$select_choice) %>% 
+    arrange(ratio) %>% 
+    top_n(as.numeric(input$select_top_n)) %>% 
+      plot_ly(x = ~reorder(state,ratio), y = ~ratio, color = ~state, type = "bar")
+})
+```
+
+```{r}
+rsconnect::setAccountInfo(name='statesplots', token='E291A6311ACEA14D86804366C6AEBB73', secret='ocwzRKcFshocnAopVDQru4G3aG7gLkH/Vz4zdJ7L')
+
+
+
+library(rsconnect)
+rsconnect::deployApp('../shinyapp')
+```
+

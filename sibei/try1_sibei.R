@@ -22,11 +22,11 @@ data_year2$suicides_per100k<-round(data_year2$suicides_per100k,2)
 
 
 e=ggplot(data_year,aes(year,suicides_per100k))+geom_point(col = "brown2", size = 1)+geom_line(col = "brown2", size = 1)+scale_x_continuous(breaks = seq(1986, 2016, 2)) +
-  scale_y_continuous(breaks = seq(10, 20))+labs(title = "Global Suicides Rate",
+  scale_y_continuous(breaks = seq(10, 20))+labs(
                                                 x = "Year", 
-                                                y = "Suicides per 100k")+theme_set(theme_minimal() + theme(legend.position = "bottom"))+geom_text(data=data_year2,aes(label=suicides_per100k))
+                                                y = "Suicides per 100k")+theme_set(theme_minimal() + theme(legend.position = "bottom",axis.text.x = element_text(angle = 60, hjust = 1)))+geom_text(data=data_year2,aes(label=suicides_per100k))
 
-ggsave("global_trend.jpg",e,path="./sibei",width = 6, height = 4)
+ggsave("global_trend.jpg",e,path="./sibei",width =5, height =4)
 
 
 
@@ -40,7 +40,7 @@ data_gender=global %>%
 
 a=ggplot(data_gender,aes(x=year,y=suicides_per100k)) + 
   geom_bar(aes(fill=sex),position="stack",stat="identity")+scale_x_continuous(breaks = seq(1986, 2016, 2))+coord_flip()+
-  labs(title = "Suicide rate change by Sex",x = "Year", y = "Suicide rate(per 100k)")+
+  labs(x = "Year", y = "Suicide rate(per 100k)")+
   scale_color_hue(name = "Sex")+theme_set(theme_minimal() + theme(legend.position = "bottom"))
 
 b=ggplot(data_gender,aes(year, suicides_per100k, col = sex)) + 
@@ -77,7 +77,7 @@ g=ggplot(data_age,aes(year, suicide_per100k , color = age)) +
   theme(legend.position = "none") + 
   scale_x_continuous(breaks = seq(1986, 2016, 6))+ transition_reveal(year)
 
-animate(g, duration = 5, fps = 20, width = 600, height = 600, renderer = gifski_renderer())
+animate(g, duration = 5, fps = 20, width = 400, height = 400, renderer = gifski_renderer())
 anim_save("age_trend_global.gif",path="./sibei")
 
 
