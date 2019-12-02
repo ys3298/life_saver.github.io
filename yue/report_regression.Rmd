@@ -144,8 +144,30 @@ fit2 %>%
   knitr::kable(digits = 4)
 ```
 
-# Visualize model coefficients
+### Model diagnosis
+
 ```{r}
+par(mfrow = c(2,2))
+plot(fit2)
+```
+
+Basically, the residual assumptions are satisfied. However, 26 and 50 may be infludential. Then, we try to fit model without 26 and 50. 
+
+```{r}
+fit3 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data[-c(26,50),])
+par(mfrow = c(2,2))
+plot(fit3)
+
+fit3 %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 4)
+```
+
+The coefficients of model change slightly, except for temperature(over 10%). We decided to obtain 26 and 50. 
+
+### Visualize model coefficients
+
+```{r, message = FALSE}
 GGally::ggcoef(fit2,aes(x = estimate, y = term, color =  term),size = 0.8,
                exclude_intercept = T,sort = "ascending") +
   labs(title = "95% CI for Model Coefficients")
