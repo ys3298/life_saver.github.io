@@ -63,8 +63,22 @@ According to WHO, about 800,000 people died by suicide in 2016, of which 79% occ
 </center>
 <i><b>Findings</b></i>
 <ul>
-<li>Trend in 15-74 years were largely consistant,  </li>
-<li>In 75+ age group, the decrease happened all the time, from 30 death per 100k to 21 death per 100k  </li>
-<li>Generally, the 75+ group had highest suicide rate, while 5-14 gae group had lowest rate all the time </li>
+<li>Trend in 15-74 years were largely consistant. </li>
+<li>In 75+ age group, the decrease happened all the time, from 30 death per 100k to 21 death per 100k.  </li>
+<li>Generally, the 75+ group had highest suicide rate, while 5-14 gae group had lowest rate all the time. </li>
 </ul>
 
+# Average Suicide Rate Ranking by Country
+<br>
+</br>
+<center>
+<img src="sibei/ranking.jpg" style="width:92%">
+</center>
+The bar chart shows  top 40 countries with high average suicida rate from 2010-2016
+
+<i><b>Findings</b></i>
+<ul>
+<li>The country with highest suiciate rate is Lithuania, with more than 30 death per 100 k people </li>
+<li>America ranks around 23th, with around 15 death per 100k people, inciding a not optimistic situation  </li>
+
+</ul>

@@ -93,11 +93,27 @@ animate(h, duration = 5, fps = 20, width = 400, height = 400, renderer = gifski_
 anim_save("age_trend_global2.gif",path="./sibei")
 
 ## average suicide rate ranking during 1987-2016 in different continet
-global$continent <- countrycode(sourcevar = global[, "country"],
+global$continent <- countrycode(sourcevar = global$country,
                               origin = "country.name",
                               destination = "continent")
-global_rank=global %>% 
-  group_by(country,year) %>% 
-  summarize(suicide_per100k = (sum(as.numeric(suicides_no)) / sum(as.numeric(population))) * 100000) 
 
-ggplot(global_rank,aes(x=country,y=suicide_per100k))+geom_boxplot()
+global_rank=global %>%
+  filter(year>2010) %>% 
+  group_by(country) %>% 
+  summarize(suicide_per100k = (sum(as.numeric(suicides_no)) / sum(as.numeric(population))) * 100000) %>% 
+  arrange(desc(suicide_per100k)) %>% 
+  ungroup() %>% 
+  mutate(
+    country=as.factor(country),
+    country=fct_reorder(country,desc(suicide_per100k))
+  ) %>% 
+  head(40) %>% 
+  mutate(highlight_flag = ifelse(country == 'United States', T, F))
+  
+
+
+d=ggplot(global_rank,aes(x=country,y=suicide_per100k))+geom_bar(aes(fill = highlight_flag),stat="identity")+theme(legend.position = "none",axis.text.x = element_text(angle = 60, hjust = 1))+
+  scale_fill_manual(values = c('#595959', 'red'))
+  
+
+ggsave("ranking.jpg",d,path="./sibei",width = 10, height = 5)
