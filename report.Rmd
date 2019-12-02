@@ -11,6 +11,14 @@ output:
 library(tidyverse)
 library(corrplot)
 library(ggpubr)
+library(readxl)
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme_bw() + theme(legend.position = "bottom"))
 ```
 
 # Motivation
@@ -27,6 +35,58 @@ library(ggpubr)
 
 
 On the one hand, almost all the risk factors for the suicide are preventable. Usually, people are not aware of the risk factors of suicide and situate themselves in the dangerous environment. We believe that a better understanding of potential risk factors is essential for the prevention of suicide.
+
+```{r, message=FALSE, warning=FALSE}
+usa_suicide = 
+  read_xlsx("./data/suicide_age_gender.xlsx") %>% 
+  janitor::clean_names() %>% 
+  filter(is.na(ten_year_age_groups)) %>% 
+  drop_na(gender) %>% 
+  select(year, state, gender, deaths, population) %>% 
+  group_by(year) %>% 
+  summarize(
+    deaths = sum(deaths),
+    population = sum(population)
+  ) %>% 
+  mutate(
+    suicide_rate = deaths * 100000/population
+  ) %>% 
+  select(year,suicide_rate)
+
+global_suicide = 
+  read_csv("./data/master.csv") %>% 
+  janitor::clean_names() %>% 
+  filter(year >= 1999) %>% 
+  group_by(year) %>% 
+  summarize(
+    deaths = sum(suicides_no),
+    population = sum(population)
+  ) %>% 
+  mutate(
+    suicide_global = deaths*100000/population
+  ) %>% 
+  select(year, suicide_global)
+
+suicide_rate = 
+  left_join(usa_suicide, global_suicide, by = "year") %>% 
+  rename( "USA" = "suicide_rate",  "Global" = "suicide_global") %>% 
+  pivot_longer(
+    USA:Global,
+    names_to = "region",
+    values_to = "suicide_rate"
+  )
+
+suicide_rate %>% 
+  ggplot(aes(x = year, y = suicide_rate, color = region)) +
+  geom_point() + geom_line() +
+  labs(
+    title = "1999-2017 Suicide Rate in the USA and global",
+    x = "Year",
+    y = "Suicides per 100k"
+  )
+
+```
+
 
 On the other hand, the suicide rate in the USA increases overtime while it decrease in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.
 

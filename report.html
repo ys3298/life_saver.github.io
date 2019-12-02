@@ -24,7 +24,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -251,9 +250,6 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -269,12 +265,6 @@ $(document).ready(function () {
 }
 }
 
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
 
 .toc-content {
   padding-left: 30px;
@@ -402,14 +392,6 @@ div.tocify {
 
 <div class="fluid-row" id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
 
 
 <h1 class="title toc-ignore">Final report</h1>
@@ -428,6 +410,54 @@ div.tocify {
 <li><p>It is reported that in 2016 suicide was the 10th leading cause of death in the U.S., imposing a cost of $69 billion to the US annually.</p></li>
 </ul>
 <p>On the one hand, almost all the risk factors for the suicide are preventable. Usually, people are not aware of the risk factors of suicide and situate themselves in the dangerous environment. We believe that a better understanding of potential risk factors is essential for the prevention of suicide.</p>
+<pre class="r"><code>usa_suicide = 
+  read_xlsx(&quot;./data/suicide_age_gender.xlsx&quot;) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  filter(is.na(ten_year_age_groups)) %&gt;% 
+  drop_na(gender) %&gt;% 
+  select(year, state, gender, deaths, population) %&gt;% 
+  group_by(year) %&gt;% 
+  summarize(
+    deaths = sum(deaths),
+    population = sum(population)
+  ) %&gt;% 
+  mutate(
+    suicide_rate = deaths * 100000/population
+  ) %&gt;% 
+  select(year,suicide_rate)
+
+global_suicide = 
+  read_csv(&quot;./data/master.csv&quot;) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  filter(year &gt;= 1999) %&gt;% 
+  group_by(year) %&gt;% 
+  summarize(
+    deaths = sum(suicides_no),
+    population = sum(population)
+  ) %&gt;% 
+  mutate(
+    suicide_global = deaths*100000/population
+  ) %&gt;% 
+  select(year, suicide_global)
+
+suicide_rate = 
+  left_join(usa_suicide, global_suicide, by = &quot;year&quot;) %&gt;% 
+  rename( &quot;USA&quot; = &quot;suicide_rate&quot;,  &quot;Global&quot; = &quot;suicide_global&quot;) %&gt;% 
+  pivot_longer(
+    USA:Global,
+    names_to = &quot;region&quot;,
+    values_to = &quot;suicide_rate&quot;
+  )
+
+suicide_rate %&gt;% 
+  ggplot(aes(x = year, y = suicide_rate, color = region)) +
+  geom_point() + geom_line() +
+  labs(
+    title = &quot;1999-2017 Suicide Rate in the USA and global&quot;,
+    x = &quot;Year&quot;,
+    y = &quot;Suicides per 100k&quot;
+  )</code></pre>
+<p><img src="report_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
 <p>On the other hand, the suicide rate in the USA increases overtime while it decrease in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.</p>
 </div>
 <div id="goal-of-our-project" class="section level2">
@@ -465,6 +495,8 @@ div.tocify {
 <li><p>The Per captial GDP of each States in 2007 is from <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita">Wiki</a>, presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.</p></li>
 <li><p>The Average Yearly Percipitation of each state is from <a href="https://www.netstate.com/states/tables/state_precipitation.htm">NETSTATE.COM</a>, presenting a list of U.S. states sorted by their average yearly precipitation.</p></li>
 <li><p>The Average Temperature of each state is from <a href="http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&amp;dis=&amp;wist=&amp;plow=&amp;phigh=">USA.COM</a>, presenting a list of U.S. areas sorted by their average temperature.</p></li>
+<li><p>The marijuana data of each state is from <a href="https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaePercentsExcelCSVs2017/NSDUHsaePercents2017.pdf">samhsa.gov</a>, showing percentage of U.S. adults that have used cannabis within the past year from 2016 to 2017, by state.</p></li>
+<li><p>The alcohol consumption data of each state is from <a href="https://www.openicpsr.org/openicpsr/project/105583/version/V3/view;jsessionid=F62F155BFF788FAB14D58B1EF8FFF774">NIH; NIAAA</a>, showing apparent per Capita Alcohol Consumption: National, State, and Regional Trends in 1977-2017. We only select 2007 data.</p></li>
 </ul>
 </div>
 <div id="data-cleaning" class="section level2">
@@ -645,7 +677,7 @@ gender_plot =
   geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
                       
 ggarrange(gun_plot, alcohol_plot, temp_plot, precip_plot, mari_plot, edu_plot, gdp_plot, gender_plot, nrow = 3, ncol = 3) </code></pre>
-<p><img src="report_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="report_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 </div>
 <div id="multiple-linear-regression" class="section level2">
 <h2>Multiple linear regression</h2>
@@ -700,10 +732,10 @@ step(fit1) </code></pre>
 ##     gdp + gender, data = regression_data)
 ## 
 ## Coefficients:
-## (Intercept)          gun  temperature    marijuana    education          gdp  
-##  -1.440e+02    1.220e-01   -9.552e-02    2.485e-01   -2.343e-01   -1.815e-04  
-##      gender  
-##   3.559e+00</code></pre>
+## (Intercept)          gun  temperature    marijuana    education  
+##  -1.440e+02    1.220e-01   -9.552e-02    2.485e-01   -2.343e-01  
+##         gdp       gender  
+##  -1.815e-04    3.559e+00</code></pre>
 <pre class="r"><code>fit2 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data)
 fit2 %&gt;% 
   broom::tidy() %&gt;% 
@@ -810,12 +842,12 @@ fit2 %&gt;%
 <h3>Model diagnosis</h3>
 <pre class="r"><code>par(mfrow = c(2,2))
 plot(fit2)</code></pre>
-<p><img src="report_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="report_files/figure-html/unnamed-chunk-6-1.png" width="90%" /></p>
 <p>Basically, the residual assumptions are satisfied. However, 26 and 50 may be infludential. Then, we tried to fit model without 26 and 50.</p>
 <pre class="r"><code>fit3 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data[-c(26,50),])
 par(mfrow = c(2,2))
 plot(fit3)</code></pre>
-<p><img src="report_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="report_files/figure-html/unnamed-chunk-7-1.png" width="90%" /></p>
 <pre class="r"><code>fit3 %&gt;% 
   broom::tidy() %&gt;% 
   knitr::kable(digits = 4)</code></pre>
@@ -888,7 +920,7 @@ plot(fit3)</code></pre>
 <pre class="r"><code>GGally::ggcoef(fit2,aes(x = estimate, y = term, color =  term),size = 0.8,
                exclude_intercept = T,sort = &quot;ascending&quot;) +
   labs(title = &quot;95% CI for Model Coefficients&quot;)</code></pre>
-<p><img src="report_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="report_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
 <p><strong>Results:</strong></p>
 <ul>
 <li><p>“alcohol” and “precipitation” were removed from the model.</p></li>
@@ -939,11 +971,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 <script>
 $(document).ready(function ()  {
