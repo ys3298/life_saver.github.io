@@ -153,13 +153,33 @@ fit2 %>%
   knitr::kable(digits = 4)
 ```
 
+# Visualize model coefficients
+
+```{r}
+GGally::ggcoef(fit2,aes(x = estimate, y = term, color =  term),size = 0.8,
+               exclude_intercept = T,sort = "ascending") +
+  labs(title = "95% CI for Model Coefficients")
+```
+
+# Model diagnosis
 
 ```{r, include= FALSE}
-# model diagnosis
 par(mfrow = c(2,2))
 plot(fit2)
 # Basically, the residual assumptions are satisfied.
+
+# 26 and 50 may be influential
+fit3 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data[-c(26,50),])
+plot(fit3)
+
+# fit model without 26 and 50
+fit3 %>% 
+  broom::tidy() %>% 
+  select(term, estimate, p.value) %>% 
+  knitr::kable(digits = 4)
+# The coefficients of model change slightly, except for temperature(over 10%)
 ```
+
 
 The fitted equation is "suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp". 
 
