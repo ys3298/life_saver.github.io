@@ -514,6 +514,385 @@ div.tocify {
 </div>
 <div id="regression-analysis" class="section level1">
 <h1>Regression Analysis</h1>
+<p>We are interested in whether there is a linear association between suicide rate and some risk factors. We choose <code>suicide</code> as the mean outcome, <code>gun</code>, <code>alcohol</code>, <code>temperature</code>, <code>precipitation</code>, <code>marijuana</code>, <code>education</code>, <code>gdp</code> and <code>gender</code> as candidate covariates, each with 50 observations.</p>
+<p>One value of <code>gun</code> in Wyoming and one value of <code>temperature</code> in Rhode Island were missing. We replaced them with the mean value of other 49 observations.</p>
+<p>After tidying the <a href="./data/US_2017.csv">merged dataset</a>, we obtain the <a href="./data/regression_data.csv">regression dataset</a>. The description of the dataset is shown below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Variables</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">state</td>
+<td align="center">State</td>
+</tr>
+<tr class="even">
+<td align="center">suicide</td>
+<td align="center">Suicide rate per 100000 population</td>
+</tr>
+<tr class="odd">
+<td align="center">gun</td>
+<td align="center">Number of guns per 1000 population</td>
+</tr>
+<tr class="even">
+<td align="center">alcohol</td>
+<td align="center">Alcohol consumption per capita (gallons of ethanol)</td>
+</tr>
+<tr class="odd">
+<td align="center">temperature</td>
+<td align="center">Average temperature (F)</td>
+</tr>
+<tr class="even">
+<td align="center">precipitation</td>
+<td align="center">Average precipitation (inches)</td>
+</tr>
+<tr class="odd">
+<td align="center">marijuana</td>
+<td align="center">Marijuana use in adults (%)</td>
+</tr>
+<tr class="even">
+<td align="center">education</td>
+<td align="center">Educational attainment - bachelor’s degree or higher (%)</td>
+</tr>
+<tr class="odd">
+<td align="center">gdp</td>
+<td align="center">GDP per capita (dollars)</td>
+</tr>
+<tr class="even">
+<td align="center">gender</td>
+<td align="center">Male (%)</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>regression_data = read_csv(&quot;./data/us_2017.csv&quot;) %&gt;%
+  janitor::clean_names() %&gt;% 
+  filter(state != &quot;District of Columbia&quot;) %&gt;% 
+  mutate(
+    suicide = suicide_rate,
+    gun = guns_number_per_capita_average,
+    alcohol = alcohol_consumption,
+    marijuana = marijuana_usage * 100,
+    education = (advanced_degree + bachelors_degree) * 100,
+    gender = male_proportion * 100
+    ) %&gt;% 
+  select(state, suicide, gun, alcohol, temperature, precipitation, marijuana, education, gdp, gender) %&gt;% 
+  # replace missing value with mean value
+  mutate(
+    gun = replace_na(gun, mean(gun, na.rm = TRUE)),
+    temperature = replace_na(temperature, mean(temperature, na.rm = TRUE)))</code></pre>
+<div id="simple-linear-regression" class="section level2">
+<h2>Simple linear regression</h2>
+<p>First, we used scatter plot to see the relationship between suicide rate and each covariate. The scatter plots with linear regression line are shown below:</p>
+<pre class="r"><code># gun
+gun_plot = 
+  regression_data %&gt;% 
+  ggplot(aes(x = gun, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
+
+# alcohol
+alcohol_plot =
+  regression_data %&gt;% 
+  ggplot(aes(x = alcohol, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
+
+# temperature
+temp_plot =
+  regression_data %&gt;% 
+  ggplot(aes(x = temperature, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
+
+# precipitation
+precip_plot =
+  regression_data %&gt;% 
+  ggplot(aes(x = precipitation, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
+
+# marijuana
+mari_plot =
+  regression_data %&gt;% 
+  ggplot(aes(x = marijuana, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
+
+# education
+edu_plot =
+  regression_data %&gt;% 
+  ggplot(aes(x = education, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
+
+# gdp
+gdp_plot =
+  regression_data %&gt;% 
+  ggplot(aes(x = gdp, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
+
+# gender
+gender_plot = 
+  regression_data %&gt;% 
+  ggplot(aes(x = gender, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = &quot;red&quot;,show.legend = FALSE, se = TRUE) 
+                      
+ggarrange(gun_plot, alcohol_plot, temp_plot, precip_plot, mari_plot, edu_plot, gdp_plot, gender_plot, nrow = 3, ncol = 3) </code></pre>
+<p><img src="report_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="multiple-linear-regression" class="section level2">
+<h2>Multiple linear regression</h2>
+<p>Next, we used automatic procedures (stepwise elimination) to cut down covariates.</p>
+<pre class="r"><code>fit1 = lm(suicide ~.-state,data = regression_data)
+step(fit1) </code></pre>
+<pre><code>## Start:  AIC=80.99
+## suicide ~ (state + gun + alcohol + temperature + precipitation + 
+##     marijuana + education + gdp + gender) - state
+## 
+##                 Df Sum of Sq    RSS     AIC
+## - alcohol        1     0.040 176.27  78.999
+## - precipitation  1     0.206 176.43  79.046
+## &lt;none&gt;                       176.23  80.987
+## - temperature    1    13.963 190.19  82.800
+## - education      1    30.539 206.77  86.978
+## - marijuana      1    33.321 209.55  87.647
+## - gun            1    50.987 227.21  91.693
+## - gdp            1    60.008 236.23  93.640
+## - gender         1   230.078 406.31 120.754
+## 
+## Step:  AIC=79
+## suicide ~ gun + temperature + precipitation + marijuana + education + 
+##     gdp + gender
+## 
+##                 Df Sum of Sq    RSS     AIC
+## - precipitation  1     0.239 176.51  77.067
+## &lt;none&gt;                       176.27  78.999
+## - temperature    1    14.916 191.18  81.060
+## - education      1    30.554 206.82  84.992
+## - marijuana      1    36.734 213.00  86.464
+## - gun            1    54.555 230.82  90.481
+## - gdp            1    60.536 236.80  91.760
+## - gender         1   230.865 407.13 118.856
+## 
+## Step:  AIC=77.07
+## suicide ~ gun + temperature + marijuana + education + gdp + gender
+## 
+##               Df Sum of Sq    RSS     AIC
+## &lt;none&gt;                     176.51  77.067
+## - temperature  1    16.667 193.17  79.578
+## - education    1    31.270 207.78  83.222
+## - marijuana    1    38.487 214.99  84.929
+## - gun          1    54.864 231.37  88.600
+## - gdp          1    60.935 237.44  89.895
+## - gender       1   236.423 412.93 117.563</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = suicide ~ gun + temperature + marijuana + education + 
+##     gdp + gender, data = regression_data)
+## 
+## Coefficients:
+## (Intercept)          gun  temperature    marijuana    education          gdp  
+##  -1.440e+02    1.220e-01   -9.552e-02    2.485e-01   -2.343e-01   -1.815e-04  
+##      gender  
+##   3.559e+00</code></pre>
+<pre class="r"><code>fit2 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data)
+fit2 %&gt;% 
+  broom::tidy() %&gt;% 
+  knitr::kable(digits = 4)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-143.9870</td>
+<td align="right">24.3248</td>
+<td align="right">-5.9194</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">gun</td>
+<td align="right">0.1220</td>
+<td align="right">0.0334</td>
+<td align="right">3.6559</td>
+<td align="right">0.0007</td>
+</tr>
+<tr class="odd">
+<td align="left">temperature</td>
+<td align="right">-0.0955</td>
+<td align="right">0.0474</td>
+<td align="right">-2.0150</td>
+<td align="right">0.0502</td>
+</tr>
+<tr class="even">
+<td align="left">marijuana</td>
+<td align="right">0.2485</td>
+<td align="right">0.0811</td>
+<td align="right">3.0621</td>
+<td align="right">0.0038</td>
+</tr>
+<tr class="odd">
+<td align="left">education</td>
+<td align="right">-0.2343</td>
+<td align="right">0.0849</td>
+<td align="right">-2.7601</td>
+<td align="right">0.0085</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="right">3.5589</td>
+<td align="right">0.4689</td>
+<td align="right">7.5893</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">gdp</td>
+<td align="right">-0.0002</td>
+<td align="right">0.0000</td>
+<td align="right">-3.8529</td>
+<td align="right">0.0004</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>fit2 %&gt;% 
+  broom::glance() %&gt;%   
+  knitr::kable(digits = 4)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">r.squared</th>
+<th align="right">adj.r.squared</th>
+<th align="right">sigma</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="right">df</th>
+<th align="right">logLik</th>
+<th align="right">AIC</th>
+<th align="right">BIC</th>
+<th align="right">deviance</th>
+<th align="right">df.residual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.8354</td>
+<td align="right">0.8124</td>
+<td align="right">2.026</td>
+<td align="right">36.3648</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">-102.4802</td>
+<td align="right">220.9604</td>
+<td align="right">236.2566</td>
+<td align="right">176.5058</td>
+<td align="right">43</td>
+</tr>
+</tbody>
+</table>
+<div id="model-diagnosis" class="section level3">
+<h3>Model diagnosis</h3>
+<pre class="r"><code>par(mfrow = c(2,2))
+plot(fit2)</code></pre>
+<p><img src="report_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Basically, the residual assumptions are satisfied. However, 26 and 50 may be infludential. Then, we tried to fit model without 26 and 50.</p>
+<pre class="r"><code>fit3 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data[-c(26,50),])
+par(mfrow = c(2,2))
+plot(fit3)</code></pre>
+<p><img src="report_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>fit3 %&gt;% 
+  broom::tidy() %&gt;% 
+  knitr::kable(digits = 4)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-124.8903</td>
+<td align="right">19.0036</td>
+<td align="right">-6.5719</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">gun</td>
+<td align="right">0.1277</td>
+<td align="right">0.0257</td>
+<td align="right">4.9753</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">temperature</td>
+<td align="right">-0.0659</td>
+<td align="right">0.0368</td>
+<td align="right">-1.7906</td>
+<td align="right">0.0807</td>
+</tr>
+<tr class="even">
+<td align="left">marijuana</td>
+<td align="right">0.2668</td>
+<td align="right">0.0628</td>
+<td align="right">4.2472</td>
+<td align="right">0.0001</td>
+</tr>
+<tr class="odd">
+<td align="left">education</td>
+<td align="right">-0.2224</td>
+<td align="right">0.0667</td>
+<td align="right">-3.3327</td>
+<td align="right">0.0018</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="right">3.1119</td>
+<td align="right">0.3692</td>
+<td align="right">8.4287</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">gdp</td>
+<td align="right">-0.0002</td>
+<td align="right">0.0000</td>
+<td align="right">-4.5129</td>
+<td align="right">0.0001</td>
+</tr>
+</tbody>
+</table>
+<p>The coefficients of model change slightly, except for temperature(over 10%). We decided to retain 26 and 50.</p>
+</div>
+<div id="visualize-model-coefficients" class="section level3">
+<h3>Visualize model coefficients</h3>
+<pre class="r"><code>GGally::ggcoef(fit2,aes(x = estimate, y = term, color =  term),size = 0.8,
+               exclude_intercept = T,sort = &quot;ascending&quot;) +
+  labs(title = &quot;95% CI for Model Coefficients&quot;)</code></pre>
+<p><img src="report_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<ul>
+<li><p>“alcohol” and “precipitation” were removed from the model.</p></li>
+<li><p>The fitted equation is “suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp”.</p></li>
+<li><p>Adjusted R-square is 0.8124, which means these variables can explain a large proportion of variance in the suicide rate.</p></li>
+<li><p>According to the results, suicide rate is higher in states where there is a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment.</p></li>
+<li><p>Holding other variables constant, for one unit increase in gun ownership(per 1,000), marijuana use in adults(%), or for one unit decrease in proportion of male (%), GDP per capita (dollars), the suicide rate(per 100,000 population) will respectively increase by 0.13, 0.27, 3.11, or decrease by 0.22, 0.0002 on avarage.</p></li>
+</ul>
+</div>
+</div>
 </div>
 <div id="discussion" class="section level1">
 <h1>Discussion</h1>
