@@ -1,0 +1,150 @@
+---
+title: "Regression Analysis"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(corrplot)
+library(ggpubr)
+```
+
+# Tidying the data
+
+## Data cleaning for regression analysis
+
+We are interested in whether there is a linear association between suicide rate and some factors. From the `us_2017` dataset, we choose `suicide` as the mean outcome, `gun`, `alcohol`, `temperature`, `precipitation`, `marijuana`, `education`, `gdp` and `gender` as candidate covariates, each with 50 observations. 
+
+One value of `gun` in Wyoming and one value of `temperature` in Rhode Island were missing. We replaced them with the mean value of other 49 observations. 
+
+After tidying the `us_2017` dataset, we obtain the `regression_data` dataset. The description of `regression_data` is shown below:
+
+| Variables  | Description   |
+| :------------------: | :----------------------------------------------------------------------------------: |
+| state  | State  |
+| suicide  | Suicide rate per 100000 population  |
+| gun  | Number of guns per 1000 population  |
+| alcohol  | Alcohol consumption per capita (gallons of ethanol)|
+| temperature  | Average temperature (F)     |
+| precipitation |  Average precipitation (inches) |                         
+| marijuana  | Marijuana use in adults (%)
+| education    | Educational attainment - bachelor's degree or higher (%)   |
+| gdp    | GDP per capita (dollars)   |
+| gender    | Male (%)   |
+
+
+```{r, message = FALSE}
+regression_data = read_csv("../data/us_2017.csv") %>%
+  janitor::clean_names() %>% 
+  filter(state != "District of Columbia") %>% 
+  mutate(
+    suicide = suicide_rate,
+    gun = guns_number_per_capita_average,
+    alcohol = alcohol_consumption,
+    marijuana = marijuana_usage * 100,
+    education = (advanced_degree + bachelors_degree) * 100,
+    gender = male_proportion * 100
+    ) %>% 
+  select(state, suicide, gun, alcohol, temperature, precipitation, marijuana, education, gdp, gender) %>% 
+  # replace missing value with mean value
+  mutate(
+    gun = replace_na(gun, mean(gun, na.rm = TRUE)),
+    temperature = replace_na(temperature, mean(temperature, na.rm = TRUE)))
+```
+
+# Regression Analysis
+
+## Simple linear regression
+
+First, we used scatter plot to see the relationship between suicide rate and each covariate. The scatter plots with linear regression line are shown below:
+
+```{r}
+# gun
+gun_plot = 
+  regression_data %>% 
+  ggplot(aes(x = gun, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+
+# alcohol
+alcohol_plot =
+  regression_data %>% 
+  ggplot(aes(x = alcohol, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+
+# temperature
+temp_plot =
+  regression_data %>% 
+  ggplot(aes(x = temperature, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+
+# precipitation
+precip_plot =
+  regression_data %>% 
+  ggplot(aes(x = precipitation, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+
+# marijuana
+mari_plot =
+  regression_data %>% 
+  ggplot(aes(x = marijuana, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+
+# education
+edu_plot =
+  regression_data %>% 
+  ggplot(aes(x = education, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+
+# gdp
+gdp_plot =
+  regression_data %>% 
+  ggplot(aes(x = gdp, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+
+# gender
+gender_plot = 
+  regression_data %>% 
+  ggplot(aes(x = gender, y = suicide)) +
+  geom_point() +
+  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+                      
+ggarrange(gun_plot, alcohol_plot, temp_plot, precip_plot, mari_plot, edu_plot, gdp_plot, gender_plot, nrow = 3, ncol = 3) 
+```
+
+
+## Multiple linear regression
+
+Next, we use automatic procedures (stepwise elimination) to cut down covariates.
+
+```{r}
+fit1 = lm(suicide ~.-state,data = regression_data)
+step(fit1) 
+```
+
+```{r}
+fit2 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data)
+fit2 %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 4)
+
+fit2 %>% 
+  broom::glance() %>%   
+  knitr::kable(digits = 4)
+```
+
+* "alcohol" and "precipitation" were removed from the model. 
+* The fitted equation is "suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp". 
+* Adjusted R-square is 0.8124, which means these variables can explain a large proportion of variance in the suicide rate. 
+* According to the results, suicide rate is larger in states where have a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment.
