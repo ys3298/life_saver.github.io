@@ -4,7 +4,7 @@ output:
   html_document:
     toc: true
     toc_float: true
-    code_folding: hide
+
 ---
 
 ```{r setup, include=FALSE}
@@ -75,6 +75,10 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 * The Average Yearly Percipitation of each state is from [NETSTATE.COM](https://www.netstate.com/states/tables/state_precipitation.htm), presenting a list of U.S. states sorted by their average yearly precipitation.
 
 * The Average Temperature of each state is from   [USA.COM](http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&dis=&wist=&plow=&phigh=), presenting a list of U.S. areas sorted by their average temperature. 
+
+* The marijuana data of each state is from [samhsa.gov](https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaePercentsExcelCSVs2017/NSDUHsaePercents2017.pdf), showing percentage of U.S. adults that have used cannabis within the past year from 2016 to 2017, by state.
+
+* The alcohol consumption data of each state is from [NIH; NIAAA](https://www.openicpsr.org/openicpsr/project/105583/version/V3/view;jsessionid=F62F155BFF788FAB14D58B1EF8FFF774), showing apparent per Capita Alcohol Consumption: National, State, and Regional Trends in 1977-2017. We only select 2007 data.
 
 ## Data Cleaning
 
