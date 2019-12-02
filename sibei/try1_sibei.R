@@ -6,6 +6,8 @@ library(babynames)
 library(hrbrthemes)
 library(gapminder)
 library(gifski)
+library(ggplot2)
+library(plotly)
 install.packages("countrycode")
 library(countrycode)
 
@@ -114,6 +116,6 @@ global_rank=global %>%
 
 d=ggplot(global_rank,aes(x=country,y=suicide_per100k))+geom_bar(aes(fill = highlight_flag),stat="identity")+theme(legend.position = "none",axis.text.x = element_text(angle = 60, hjust = 1))+
   scale_fill_manual(values = c('#595959', 'red'))
-  
+
 
 ggsave("ranking.jpg",d,path="./sibei",width = 10, height = 5)

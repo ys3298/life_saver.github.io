@@ -71,11 +71,36 @@ According to WHO, about 800,000 people died by suicide in 2016, of which 79% occ
 # Average Suicide Rate Ranking by Country
 <br>
 </br>
-<center>
-<img src="sibei/ranking.jpg" style="width:92%">
-</center>
-The bar chart shows  top 40 countries with high average suicida rate from 2010-2016
 
+```{r, echo = FALSE,message=FALSE,warning=FALSE}
+library(tidyverse)
+library(plotly)
+global=read_csv("./data/master.csv")
+global_rank=global %>%
+  filter(year>2010) %>% 
+  group_by(country) %>% 
+  summarize(suicide_per100k = (sum(as.numeric(suicides_no)) / sum(as.numeric(population))) * 100000) %>% 
+  arrange(desc(suicide_per100k)) %>% 
+  ungroup() %>% 
+  mutate(
+    country=as.factor(country),
+    country=fct_reorder(country,desc(suicide_per100k))
+  ) %>% 
+  head(40) %>% 
+  mutate(highlight_flag = ifelse(country == 'United States', T, F))
+  
+
+
+d=ggplot(global_rank,aes(x=country,y=suicide_per100k))+geom_bar(aes(fill = highlight_flag),stat="identity")+theme(legend.position = "none",axis.text.x = element_text(angle = 60, hjust = 1))+
+  scale_fill_manual(values = c('#595959', 'red'))
+
+ggplotly(d)
+```
+
+
+The bar chart shows  top 40 countries with high average suicida rate from 2010-2016
+<br>
+</br>
 <i><b>Findings</b></i>
 <ul>
 <li>The country with highest suiciate rate is Lithuania, with more than 30 death per 100 k people </li>
