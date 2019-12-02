@@ -25,9 +25,11 @@ On the other hand, the suicide rate in the USA increases overtime while it decre
 
 ## Goal of our project
 
-* Understanding risk factors for suicide
+* Visualizing the general situation of suicide rate worldwide
 
-* Visualizing correlations of these risk factors with suicide
+* Understanding risk factors for suicide in U.S.
+
+* Visualizing correlations of these risk factors with suicide in U.S.
 
 * Visualizing the distribution of risk factors and suicide in the U.S.
 
@@ -59,7 +61,7 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 
 * World suicide data is from [here](https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016), a Kaggle project dataset, including variables such as countries, year, sex, age, suicide number, population and GDP, which aimes to describe the general suicide rates among different countries, time, gender and age. The dataset is a complied dataset, coming from [United Nations Development Program](http://hdr.undp.org/en/indicators/137506), [World Banlk](http://hdr.undp.org/en/indicators/137506), [Suicide in the 21st Century ](https://www.kaggle.com/szamil/suicide-in-the-twenty-first-century/notebook) and [World Health Organization](http://www.who.int/mental_health/suicide-prevention/en/)
 
-**USA Suicide Data and the potential risk factors**
+**USA Suicide Data and the potential risk factors data**
 
 * The Per captial GDP of each States in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.
 
@@ -123,7 +125,7 @@ After we collecting data from different sources, we constructed a [merged datase
 
 **Temperature**: Averaged Temperature in F.
 
-Another dataset we used is [worldwild suicide distribution dataset](./data/suicide_age_gender.xlsx) from 1999 to 2017. In this dataset, we have information about number of suicide cases in different year, country, gender and age groups and the population in each groups. Using this dataset, we can analyze how suicide cases change worldwild in time and how suicide cases distributed in different gender and age groups.
+Another dataset we used is [Domectis suicide distribution dataset](./data/suicide_age_gender.xlsx) from 1999 to 2017. In this dataset, we have information about number of suicide cases in different year, states, gender and age groups and the population in each groups. Using this dataset, we can analyze how suicide cases change in each state in time and how suicide cases distributed in different gender and age groups.
 
 
 # Subanalyses
