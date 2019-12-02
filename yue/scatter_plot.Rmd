@@ -70,7 +70,7 @@ gun_ly =
   regression_data %>% 
   plot_ly(
     x = ~gun, y = ~suicide, type = "scatter", mode = "markers", color = I("palegreen4"), text = ~state, name = "gun") %>%
-  add_lines(x = ~gun, y = fitted(fit_gun), line = list(color = I("palegreen4"), width = 2), name = "lm-gun")
+  add_lines(x = ~gun, y = fitted(fit_gun), line = list(color = I("palegreen4"), width = 2), name = "lm-gun") 
 
 alcohol_ly =
   regression_data %>% 
@@ -119,17 +119,19 @@ subplot(gun_ly, alcohol_ly, temp_ly, precip_ly, mari_ly, edu_ly, gdp_ly, gender_
 
 ### Correlation plot
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.width = 6, fig.asp = 1, out.width = "80%"}
+col1 = colorRampPalette(c("seagreen","yellowgreen","darkgoldenrod1","indianred1", "indianred4")) 
+
 regression_data %>% 
   select(-state) %>% 
-  cor() %>% 
-  corrplot(
-    tl.col = "black", 
-    tl.cex = .8, 
-    addCoef.col = "black",
-    order = c("original"),
-    method = "color",
-    number.cex = .7)
+  cor() %>%
+  corrplot.mixed(upper.col = col1(100),
+                 lower.col = col1(100), 
+                 number.cex = .7,
+                 tl.col = "black",
+                 tl.cex = .8,
+                 tl.pos = "lt",
+                 tl.srt = 45) 
 ```
 
 ### Selected model of interest
