@@ -61,11 +61,13 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 
 **USA Suicide Data and the potential risk factors**
 
-* The Per captial GDP of each States in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S. states sorted by their gross domestic product (GDP) per capita from 2011-2018.
+* The Per captial GDP of each States in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.
 
 ## Data Cleaning
 
 **Worldwide Suicide Data**
+
+
 
 ## Final Dataset
 
