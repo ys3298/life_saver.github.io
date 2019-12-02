@@ -72,6 +72,10 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 
 * The Per captial GDP of each States in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.
 
+* The Average Yearly Percipitation of each state is from [NETSTATE.COM](https://www.netstate.com/states/tables/state_precipitation.htm), presenting a list of U.S. states sorted by their average yearly precipitation.
+
+* The Average Temperature of each state is from   [USA.COM](http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&dis=&wist=&plow=&phigh=), presenting a list of U.S. areas sorted by their average temperature. 
+
 ## Data Cleaning
 
 **Worldwide Suicide Data**
@@ -254,6 +258,8 @@ ggarrange(gun_plot, alcohol_plot, temp_plot, precip_plot, mari_plot, edu_plot, g
 
 ## Multiple linear regression
 
+### Model building
+
 Next, we used automatic procedures (stepwise elimination) to cut down covariates.
 
 ```{r}
@@ -300,6 +306,8 @@ GGally::ggcoef(fit2,aes(x = estimate, y = term, color =  term),size = 0.8,
                exclude_intercept = T,sort = "ascending") +
   labs(title = "95% CI for Model Coefficients")
 ```
+
+__Results:__
 
 * "alcohol" and "precipitation" were removed from the model. 
 

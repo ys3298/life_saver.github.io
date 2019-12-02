@@ -462,7 +462,9 @@ div.tocify {
 </ul>
 <p><strong>USA Suicide Data and the potential risk factors data</strong></p>
 <ul>
-<li>The Per captial GDP of each States in 2007 is from <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita">Wiki</a>, presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.</li>
+<li><p>The Per captial GDP of each States in 2007 is from <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita">Wiki</a>, presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.</p></li>
+<li><p>The Average Yearly Percipitation of each state is from <a href="https://www.netstate.com/states/tables/state_precipitation.htm">NETSTATE.COM</a>, presenting a list of U.S. states sorted by their average yearly precipitation.</p></li>
+<li><p>The Average Temperature of each state is from <a href="http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&amp;dis=&amp;wist=&amp;plow=&amp;phigh=">USA.COM</a>, presenting a list of U.S. areas sorted by their average temperature.</p></li>
 </ul>
 </div>
 <div id="data-cleaning" class="section level2">
@@ -647,6 +649,8 @@ ggarrange(gun_plot, alcohol_plot, temp_plot, precip_plot, mari_plot, edu_plot, g
 </div>
 <div id="multiple-linear-regression" class="section level2">
 <h2>Multiple linear regression</h2>
+<div id="model-building" class="section level3">
+<h3>Model building</h3>
 <p>Next, we used automatic procedures (stepwise elimination) to cut down covariates.</p>
 <pre class="r"><code>fit1 = lm(suicide ~.-state,data = regression_data)
 step(fit1) </code></pre>
@@ -801,6 +805,7 @@ fit2 %&gt;%
 </tr>
 </tbody>
 </table>
+</div>
 <div id="model-diagnosis" class="section level3">
 <h3>Model diagnosis</h3>
 <pre class="r"><code>par(mfrow = c(2,2))
@@ -884,6 +889,7 @@ plot(fit3)</code></pre>
                exclude_intercept = T,sort = &quot;ascending&quot;) +
   labs(title = &quot;95% CI for Model Coefficients&quot;)</code></pre>
 <p><img src="report_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><strong>Results:</strong></p>
 <ul>
 <li><p>“alcohol” and “precipitation” were removed from the model.</p></li>
 <li><p>The fitted equation is “suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp”.</p></li>
