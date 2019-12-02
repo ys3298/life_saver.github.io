@@ -71,7 +71,7 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 
 
 
-## Final Dataset
+## Final Combined Dataset of USA suicide and risk factors
 
 After we collecting data from different sources, we constructed a [merged dataset](./data/US_2017.csv) collecting multiple protential risk factors for suicide rate in different states in US, here is the discriptions:
 
