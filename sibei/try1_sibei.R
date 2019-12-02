@@ -6,6 +6,8 @@ library(babynames)
 library(hrbrthemes)
 library(gapminder)
 library(gifski)
+install.packages("countrycode")
+library(countrycode)
 
 global=read_csv("./data/master.csv")
 
@@ -90,3 +92,12 @@ h=ggplot(data_age,aes(year, suicide_per100k , color = age))+
 animate(h, duration = 5, fps = 20, width = 400, height = 400, renderer = gifski_renderer())
 anim_save("age_trend_global2.gif",path="./sibei")
 
+## average suicide rate ranking during 1987-2016 in different continet
+global$continent <- countrycode(sourcevar = global[, "country"],
+                              origin = "country.name",
+                              destination = "continent")
+global_rank=global %>% 
+  group_by(country,year) %>% 
+  summarize(suicide_per100k = (sum(as.numeric(suicides_no)) / sum(as.numeric(population))) * 100000) 
+
+ggplot(global_rank,aes(x=country,y=suicide_per100k))+geom_boxplot()
