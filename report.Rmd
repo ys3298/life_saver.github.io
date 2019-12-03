@@ -4,7 +4,7 @@ output:
   html_document:
     toc: true
     toc_float: true
-    code_folding: hide
+
 ---
 
 ```{r setup, include=FALSE}
@@ -12,7 +12,18 @@ library(tidyverse)
 library(plotly)
 library(corrplot)
 library(ggpubr)
+<<<<<<< HEAD
 library(ggplot2)
+=======
+library(readxl)
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme_bw() + theme(legend.position = "bottom"))
+>>>>>>> 385ada44b3bb804205f31e08178654671e5d3cbc
 ```
 
 # Motivation
@@ -29,6 +40,58 @@ library(ggplot2)
 
 
 On the one hand, almost all the risk factors for the suicide are preventable. Usually, people are not aware of the risk factors of suicide and situate themselves in the dangerous environment. We believe that a better understanding of potential risk factors is essential for the prevention of suicide.
+
+```{r, message=FALSE, warning=FALSE}
+usa_suicide = 
+  read_xlsx("./data/suicide_age_gender.xlsx") %>% 
+  janitor::clean_names() %>% 
+  filter(is.na(ten_year_age_groups)) %>% 
+  drop_na(gender) %>% 
+  select(year, state, gender, deaths, population) %>% 
+  group_by(year) %>% 
+  summarize(
+    deaths = sum(deaths),
+    population = sum(population)
+  ) %>% 
+  mutate(
+    suicide_rate = deaths * 100000/population
+  ) %>% 
+  select(year,suicide_rate)
+
+global_suicide = 
+  read_csv("./data/master.csv") %>% 
+  janitor::clean_names() %>% 
+  filter(year >= 1999) %>% 
+  group_by(year) %>% 
+  summarize(
+    deaths = sum(suicides_no),
+    population = sum(population)
+  ) %>% 
+  mutate(
+    suicide_global = deaths*100000/population
+  ) %>% 
+  select(year, suicide_global)
+
+suicide_rate = 
+  left_join(usa_suicide, global_suicide, by = "year") %>% 
+  rename( "USA" = "suicide_rate",  "Global" = "suicide_global") %>% 
+  pivot_longer(
+    USA:Global,
+    names_to = "region",
+    values_to = "suicide_rate"
+  )
+
+suicide_rate %>% 
+  ggplot(aes(x = year, y = suicide_rate, color = region)) +
+  geom_point() + geom_line() +
+  labs(
+    title = "1999-2017 Suicide Rate in the USA and global",
+    x = "Year",
+    y = "Suicides per 100k"
+  )
+
+```
+
 
 On the other hand, the suicide rate in the USA increases overtime while it decrease in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.
 
@@ -77,6 +140,10 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 * The Average Yearly Percipitation of each state is from [NETSTATE.COM](https://www.netstate.com/states/tables/state_precipitation.htm), presenting a list of U.S. states sorted by their average yearly precipitation.
 
 * The Average Temperature of each state is from   [USA.COM](http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&dis=&wist=&plow=&phigh=), presenting a list of U.S. areas sorted by their average temperature. 
+
+* The marijuana data of each state is from [samhsa.gov](https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaePercentsExcelCSVs2017/NSDUHsaePercents2017.pdf), showing percentage of U.S. adults that have used cannabis within the past year from 2016 to 2017, by state.
+
+* The alcohol consumption data of each state is from [NIH; NIAAA](https://www.openicpsr.org/openicpsr/project/105583/version/V3/view;jsessionid=F62F155BFF788FAB14D58B1EF8FFF774), showing apparent per Capita Alcohol Consumption: National, State, and Regional Trends in 1977-2017. We only select 2007 data.
 
 ## Data Cleaning
 
