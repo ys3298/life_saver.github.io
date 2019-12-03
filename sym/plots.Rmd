@@ -5,9 +5,6 @@ date: "12/2/2019"
 output: html_document
 ---
 
-```{r}
-
-```
 
 ```{r}
 
@@ -39,6 +36,50 @@ ggplotly(line)
 ```
 
 ```{r}
+df = read_csv("../data/us_2017.csv") %>% janitor::clean_names() %>% filter(state != "District of Columbia") %>% 
+  pivot_longer(
+    2:26,
+    names_to = "variables",
+    values_to = "data"
+  )
+
+# suicide rate
+df1 = read_csv("../data/us_2017.csv") %>% janitor::clean_names() %>% filter(state != "District of Columbia" ) %>% select(state,suicide_rate, male_suicide_rate, female_suicide_rate) %>% 
+  pivot_longer(
+    -state,
+    names_to = "variables",
+    values_to = "data"
+  ) 
+  
+df1 %>% 
+  plot_ly(y = ~data, color = ~variables, type = "box",
+          colors = "Set2")
+
+# population proportion
+names(df)
+df2 = read_csv("../data/us_2017.csv") %>% janitor::clean_names() %>% filter(state != "District of Columbia" ) %>% 
+  select(state, male_proportion, female_proportion,
+         age_5_14,age_15_24,age_25_34,age_35_44,age_45_54,age_55_64,age_65_74,age_75_84,age_85,advanced_degree,bachelors_degree,college,below_college_degree) %>% 
+  pivot_longer(
+    -state,
+    names_to = "variables",
+    values_to = "data"
+  ) %>% 
+  mutate(variables = factor(variables, levels = c("male_proportion", "female_proportion",
+         "age_5_14","age_15_24","age_25_34","age_35_44","age_45_54","age_55_64","age_65_74","age_75_84","age_85","advanced_degree","bachelors_degree","college","below_college_degree")) 
+  ) %>% 
+  mutate(
+    types = case_when(
+      variables %in% c("male_proportion" , "female_proportion") ~ "Gender",
+      variables %in% c("age_5_14","age_15_24","age_25_34","age_35_44","age_45_54","age_55_64","age_65_74","age_75_84","age_85") ~ "Age",
+      variables %in% c("advanced_degree","bachelors_degree","college","below_college_degree") ~ "Education"))
+
+boxplot = 
+  df2 %>% 
+  ggplot(aes(x = variables, y = data)) + geom_boxplot(aes(color = types)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplotly(boxplot)
 
 ```
 

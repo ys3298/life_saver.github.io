@@ -454,7 +454,7 @@ Finally, the average suicide ranking plot(2010-2016) told us how did America's s
 
 To show how the suicide cases distributed in different states, we made a Crude Suicide Rate map allowing users to toggle between different years (1999-2017) and choose gender, demonstrating the changes in suicide rate over time and visualize regional differences across the U.S. The map demonstrates that there are significant changes over time and gender.
 
-We also made a line plot to show the change of total suicide rate by year in US. We can see a stable increase by year and the truth that there are much more cases of suicide in male than in female.
+We made a line plot to show the change of total suicide rate by year in US. We can see a stable increase by year and the truth that there are much more cases of suicide in male than in female.
 ```{r message = FALSE}
 abb = read_excel("./data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
 
@@ -477,7 +477,56 @@ line =
 ggplotly(line)
 ```
 
-To show the distribution of the risk factors, we construct a US map allowing users to choose the types of variables, visualizing regional differences across the U.S and a bar plot showing the intuitive number in different states. Users are also allowed to choose TOP n states they want to explore in both plots.
+We also made boxplots to show the distributions of suicides cases in states and population composition in states.
+```{r message=FALSE, warning=FALSE}
+df = read_csv("./data/us_2017.csv") %>% janitor::clean_names() %>% filter(state != "District of Columbia") %>% 
+  pivot_longer(
+    2:26,
+    names_to = "variables",
+    values_to = "data"
+  )
+
+# suicide rate
+df1 = read_csv("./data/us_2017.csv") %>% janitor::clean_names() %>% filter(state != "District of Columbia" ) %>% select(state,suicide_rate, male_suicide_rate, female_suicide_rate) %>% 
+  pivot_longer(
+    -state,
+    names_to = "variables",
+    values_to = "data"
+  ) 
+  
+df1 %>% 
+  plot_ly(y = ~data, color = ~variables, type = "box",
+          colors = "Set2")
+
+# population proportion
+
+df2 = read_csv("./data/us_2017.csv") %>% janitor::clean_names() %>% filter(state != "District of Columbia" ) %>% 
+  select(state, male_proportion, female_proportion,
+         age_5_14,age_15_24,age_25_34,age_35_44,age_45_54,age_55_64,age_65_74,age_75_84,age_85,advanced_degree,bachelors_degree,college,below_college_degree) %>% 
+  pivot_longer(
+    -state,
+    names_to = "variables",
+    values_to = "data"
+  ) %>% 
+  mutate(variables = factor(variables, levels = c("male_proportion", "female_proportion",
+         "age_5_14","age_15_24","age_25_34","age_35_44","age_45_54","age_55_64","age_65_74","age_75_84","age_85","advanced_degree","bachelors_degree","college","below_college_degree")) 
+  ) %>% 
+  mutate(
+    types = case_when(
+      variables %in% c("male_proportion" , "female_proportion") ~ "Gender",
+      variables %in% c("age_5_14","age_15_24","age_25_34","age_35_44","age_45_54","age_55_64","age_65_74","age_75_84","age_85") ~ "Age",
+      variables %in% c("advanced_degree","bachelors_degree","college","below_college_degree") ~ "Education"))
+
+boxplot = 
+  df2 %>% 
+  ggplot(aes(x = variables, y = data)) + geom_boxplot(aes(color = types)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplotly(boxplot)
+```
+
+
+To show the distribution of the risk factors, we construct a US map in shiny app allowing users to choose the types of variables, visualizing regional differences across the U.S and a bar plot showing the intuitive number in different states. Users are also allowed to choose TOP n states they want to explore in both plots.
 
 # Regression Analysis
 
