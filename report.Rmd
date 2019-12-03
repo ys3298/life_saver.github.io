@@ -650,6 +650,11 @@ __Results:__
 
 
 # Discussion 
+Suicide is the product of complex risk factors. From our linear regression model, the suicide rate in 50 states in the USA is best predicted by gender, the gun ownership rates, average temperature, the marijuana use, the degree of education and GDP. However, future suicide rate could not be limited by these variables. While suicide is a global phenomenon, further study needs to be conducted to determine the generalization of our model and hypothesis.
+
+In this project, we do gain several insights about risk factors for suicide rate in the USA. Firstly, gender matters. Men are at higher risk of suicide compared to women, which maybe explained by the different socioeconomic status owned and the degree of pressure are faced. Another important factors are the marijuana use and the gun ownership rates. This highlights that legislation needs to be improved for restrict in drugs and gun to prevent suicide. What’s more, the average temperature, degree of education and GDP are all negative correlated with suicide rate.
+
+With the visualization of geographic variation of these risk factors in the USA, we get insights into target states for preventing suicide. We hope that our project could help to solve the puzzle for suicide cause and increase the awareness of the public.
 
 
 
