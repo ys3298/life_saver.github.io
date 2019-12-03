@@ -9,8 +9,10 @@ output:
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(plotly)
 library(corrplot)
 library(ggpubr)
+library(ggplot2)
 ```
 
 # Motivation
@@ -197,63 +199,64 @@ regression_data = read_csv("./data/us_2017.csv") %>%
 First, we used scatter plot to see the relationship between suicide rate and each covariate. The scatter plots with linear regression line are shown below:
 
 ```{r}
-# gun
-gun_plot = 
-  regression_data %>% 
-  ggplot(aes(x = gun, y = suicide)) +
-  geom_point() +
-  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+fit_gun = lm(suicide ~ gun, data = regression_data)
+fit_alcohol = lm(suicide ~ alcohol, data = regression_data)
+fit_education = lm(suicide ~ education, data = regression_data)
+fit_gdp = lm(suicide ~ gdp, data = regression_data)
+fit_gender = lm(suicide ~ gender, data = regression_data)
+fit_marijuana = lm(suicide ~ marijuana, data = regression_data)
+fit_precipitation = lm(suicide ~ precipitation, data = regression_data)
+fit_temperature = lm(suicide ~ temperature, data = regression_data)
 
-# alcohol
-alcohol_plot =
+gun_ly =
   regression_data %>% 
-  ggplot(aes(x = alcohol, y = suicide)) +
-  geom_point() +
-  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+  plot_ly(
+    x = ~gun, y = ~suicide, type = "scatter", mode = "markers", color = I("palegreen4"), text = ~state, name = "gun") %>%
+  add_lines(x = ~gun, y = fitted(fit_gun), line = list(color = I("palegreen4"), width = 2), name = "lm-gun")
 
-# temperature
-temp_plot =
+alcohol_ly =
   regression_data %>% 
-  ggplot(aes(x = temperature, y = suicide)) +
-  geom_point() +
-  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+  plot_ly(
+    x = ~alcohol, y = ~suicide, type = "scatter", mode = "markers", color = I("indianred1"), text = ~state, name = "alcohol") %>%
+  add_lines(x = ~alcohol, y = fitted(fit_alcohol),line = list(color = I("indianred1"), width = 2), name = "lm-alcohol")
 
-# precipitation
-precip_plot =
+temp_ly =
   regression_data %>% 
-  ggplot(aes(x = precipitation, y = suicide)) +
-  geom_point() +
-  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+  plot_ly(
+    x = ~temperature, y = ~suicide, type = "scatter", mode = "markers", color = I("brown"), text = ~state, name = "temperature") %>%
+  add_lines(x = ~temperature, y = fitted(fit_temperature), line = list(color = I("brown"), width = 2), name = "lm-temperature")
 
-# marijuana
-mari_plot =
+precip_ly =
   regression_data %>% 
-  ggplot(aes(x = marijuana, y = suicide)) +
-  geom_point() +
-  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+  plot_ly(
+    x = ~precipitation, y = ~suicide, type = "scatter", mode = "markers", color = I("orange"), text = ~state, name = "precipitation") %>%
+  add_lines(x = ~precipitation, y = fitted(fit_precipitation), line = list(color = I("orange"), width = 2), name = "lm-precipitation")
 
-# education
-edu_plot =
+mari_ly =
   regression_data %>% 
-  ggplot(aes(x = education, y = suicide)) +
-  geom_point() +
-  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+  plot_ly(
+    x = ~marijuana, y = ~suicide, type = "scatter", mode = "markers",color = I("snow4"), text = ~state, name = "marijuana") %>%
+  add_lines(x = ~marijuana, y = fitted(fit_marijuana), line = list(color = I("snow4"), width = 2), name = "lm-marijuana")
 
-# gdp
-gdp_plot =
+edu_ly =
   regression_data %>% 
-  ggplot(aes(x = gdp, y = suicide)) +
-  geom_point() +
-  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
+  plot_ly(
+    x = ~education, y = ~suicide, type = "scatter", mode = "markers", color = I("plum"), text = ~state, name = "education") %>%
+  add_lines(x = ~education, y = fitted(fit_education), line = list(color = I("plum"), width = 2), name = "lm-education")
 
-# gender
-gender_plot = 
+gdp_ly =
   regression_data %>% 
-  ggplot(aes(x = gender, y = suicide)) +
-  geom_point() +
-  geom_smooth(method = lm, color = "red",show.legend = FALSE, se = TRUE) 
-                      
-ggarrange(gun_plot, alcohol_plot, temp_plot, precip_plot, mari_plot, edu_plot, gdp_plot, gender_plot, nrow = 3, ncol = 3) 
+  plot_ly(
+    x = ~gdp, y = ~suicide, type = "scatter", mode = "markers", color = I("royalblue1"), text = ~state, name = "gdp") %>%
+  add_lines(x = ~gdp, y = fitted(fit_gdp), line = list(color = I("royalblue1"), width = 2), name = "lm-gdp")
+
+gender_ly =
+  regression_data %>% 
+  plot_ly(
+    x = ~gender, y = ~suicide, type = "scatter", mode = "markers", color = I("purple1"), text = ~state, name = "gender") %>%
+  add_lines(x = ~gender, y = fitted(fit_gender), line = list(color =  I("purple1"), width = 2), name = "lm-gender")
+
+subplot(gun_ly, alcohol_ly, temp_ly, precip_ly, mari_ly, edu_ly, gdp_ly, gender_ly, nrows = 4, shareX = FALSE, shareY = TRUE)
 ```
 
 ## Multiple linear regression
