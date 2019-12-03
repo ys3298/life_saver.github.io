@@ -125,7 +125,7 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 
 **Worldwide Suicide Data**
 
-* World suicide data is from [here](https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016), a Kaggle project dataset, including variables such as countries, year, sex, age, suicide number, population and GDP, which aimes to describe the general suicide rates among different countries, time, gender and age. The dataset is a complied dataset, coming from [United Nations Development Program](http://hdr.undp.org/en/indicators/137506), [World Banlk](http://hdr.undp.org/en/indicators/137506), [Suicide in the 21st Century ](https://www.kaggle.com/szamil/suicide-in-the-twenty-first-century/notebook) and [World Health Organization](http://www.who.int/mental_health/suicide-prevention/en/)
+* World suicide data is from [here](https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016), a Kaggle project dataset, including variables such as countries, year, sex, age, suicide number, population and GDP, which aims to describe the general suicide rates among different countries, time, gender and age. The dataset is a complied dataset, coming from [United Nations Development Program](http://hdr.undp.org/en/indicators/137506), [World Banlk](http://hdr.undp.org/en/indicators/137506), [Suicide in the 21st Century ](https://www.kaggle.com/szamil/suicide-in-the-twenty-first-century/notebook) and [World Health Organization](http://www.who.int/mental_health/suicide-prevention/en/)
 
 **USA Suicide Data and the potential risk factors data**
 
