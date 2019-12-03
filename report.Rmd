@@ -208,6 +208,19 @@ Another dataset we used is [Domectis suicide distribution dataset](./data/suicid
 
 ## World-level insight
 
+Visulization the world data helps us to undertand the general trend of suicide rate among age, gender and try to capture the difference between domestic and global suicide rate situation.
+
+Firstly, we drew an animation world map Gif to show the suicide rate change of each country from 1986-2016.
+
+Secondly, the line plot was made to show the anunal global suicide rate change. We can tell that before 1995, a dramatic increase happened and after 1995, a steady drop followed.
+
+Thirdly, the global suicide rate change in gender was presented. Generally, the rate in male was much higher than rate in female.
+
+What's more, different trends in different age group showed that 75+ age group occupied the highest position all the time. But all age groups all were experiencing a drop from 2000 to 2016.
+
+Finally, the average suicide ranking plot(2010-2016) told us how did America's suicide rate compare with other countirs. In top 40, USA ranked aroung 23rd, inciding a not optimistic situation
+
+
 ## US-level insight
 
 To show how the suicide cases distributed in different states, we made a Crude Suicide Rate map allowing users to toggle between different years (1999-2017) and choose gender, demonstrating the changes in suicide rate over time and visualize regional differences across the U.S. The map demonstrates that there are significant changes over time and gender.
