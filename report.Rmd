@@ -155,6 +155,69 @@ All the data can be found [here](https://github.com/ys3298/life_saver.github.io/
 ## Data Cleaning
 
 **Worldwide Suicide Data**
+```{r,message=FALSE, warning=FALSE, results='hide',eval = FALSE}
+## global map
+world <- read_csv("./data/master.csv")
+world_clean <-
+  world %>% 
+  rename( "rate_standardized" = "suicides/100k pop") %>% 
+  mutate(suicides = population * rate_standardized) %>% 
+  group_by(country,year) %>% 
+  summarise(rate = sum(suicides)/sum(population))
+
+world_clean <-
+  world_clean %>% 
+  mutate(
+    'country_iso3c' =   countrycode(country,'country.name', 'iso3c')
+  )
+
+# get Min and Max values of suicide rate
+vmax <- world_clean %>% pull(rate) %>% max(na.rm=T)
+vmin <- world_clean %>% pull(rate) %>% min(na.rm=T)
+## Global total trend (by year)
+
+data_year=global %>% 
+  group_by(year) %>%
+  summarize(population = sum(population), 
+            suicides = sum(suicides_no), 
+            suicides_per100k = (suicides / population) * 100000)
+
+data_year2=arrange(data_year, desc(suicides_per100k))[1,] 
+data_year2$suicides_per100k<-round(data_year2$suicides_per100k,2)
+
+## Global gender trend
+
+data_gender=global %>%
+  group_by(sex,year) %>%
+  summarize(population = sum(population), 
+            suicides = sum(suicides_no), 
+            suicides_per100k = (suicides / population) * 100000)
+## Different age group trend(by year) animation separeted line
+
+data_age=global %>% 
+  mutate(
+    age=fct_relevel(age,"5-14 years","15-24 years","25-34 years","35-54 years","55-74 years","75+ years")
+  )%>%
+  group_by(year, age) %>%
+  summarize(suicide_per100k = (sum(as.numeric(suicides_no)) / sum(as.numeric(population))) * 100000) 
+## average suicide rate ranking during 1987-2016 in different continet
+
+global_rank=global %>%
+  filter(year>2010) %>% 
+  group_by(country) %>% 
+  summarize(suicide_per100k = (sum(as.numeric(suicides_no)) / sum(as.numeric(population))) * 100000) %>% 
+  arrange(desc(suicide_per100k)) %>% 
+  ungroup() %>% 
+  mutate(
+    country=as.factor(country),
+    country=fct_reorder(country,desc(suicide_per100k))
+  ) %>% 
+  head(40) %>% 
+  mutate(highlight_flag = ifelse(country == 'United States', T, F))
+  
+```
+
+We directly download the csv file of world suicide data here]( https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016). Then calculate for suicide rate per 100k using suicide number and total population. Next for different purposes, we `group_by` different variables such as year, country and gender to get the rates in different groups. 
 
 **US_2017 Data**
 ```{r message=FALSE, warning=FALSE, results='hide'}
