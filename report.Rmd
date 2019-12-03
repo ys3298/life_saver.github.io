@@ -12,25 +12,12 @@ library(tidyverse)
 library(plotly)
 library(corrplot)
 library(ggpubr)
-<<<<<<< HEAD
 library(ggplot2)
-=======
-
 library(ggplot2)
-
->>>>>>> 1197cbe8386dfe849c99ed6a8876aaa0eaaef80f
 library(readxl)
-knitr::opts_chunk$set(
-  fig.width = 6,
-  fig.asp = .6,
-  out.width = "90%"
-)
 
 theme_set(theme_minimal() + theme_bw() + theme(legend.position = "bottom"))
-<<<<<<< HEAD
-=======
 
->>>>>>> 1197cbe8386dfe849c99ed6a8876aaa0eaaef80f
 ```
 
 # Motivation
@@ -141,6 +128,8 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 * World suicide data is from [here](https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016), a Kaggle project dataset, including variables such as countries, year, sex, age, suicide number, population and GDP, which aimes to describe the general suicide rates among different countries, time, gender and age. The dataset is a complied dataset, coming from [United Nations Development Program](http://hdr.undp.org/en/indicators/137506), [World Banlk](http://hdr.undp.org/en/indicators/137506), [Suicide in the 21st Century ](https://www.kaggle.com/szamil/suicide-in-the-twenty-first-century/notebook) and [World Health Organization](http://www.who.int/mental_health/suicide-prevention/en/)
 
 **USA Suicide Data and the potential risk factors data**
+
+*
 
 * The Per captial GDP of each States in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.
 
