@@ -129,9 +129,9 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 
 **USA Suicide Data and the potential risk factors data**
 
-*
+* The Suicide Rates of each state from 1999 to 2017 is from [Domectis suicide distribution dataset](./data/suicide_age_gender.xlsx) from CDC. This dataset also includes gender and age composition in each state as well as suicide rates among groups.
 
-* The Per captial GDP of each States in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.
+* The Per captial GDP of each State in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.
 
 * The Average Yearly Percipitation of each state is from [NETSTATE.COM](https://www.netstate.com/states/tables/state_precipitation.htm), presenting a list of U.S. states sorted by their average yearly precipitation.
 
@@ -351,7 +351,7 @@ par(mfrow = c(2,2))
 plot(fit2)
 ```
 
-Basically, the residual assumptions are satisfied. However, 26 and 50 may be infludential. Then, we tried to fit model without 26 and 50. 
+Basically, the residual assumptions are satisfied. However, 26 and 50 may be influential. Then, we tried to fit model without 26 and 50. 
 
 ```{r}
 fit3 = lm(suicide ~ gun + temperature + marijuana + education + gender +gdp, data = regression_data[-c(26,50),])
