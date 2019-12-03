@@ -217,7 +217,7 @@ global_rank=global %>%
   
 ```
 
-We directly download the csv file of world suicide data here]( https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016). Then calculate for suicide rate per 100k using suicide number and total population. Next for different purposes, we `group_by` different variables such as year, country and gender to get the rates in different groups. 
+We directly download the csv file of world suicide data [here]( https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016). Then calculate for suicide rate per 100k using suicide number and total population. Next for different purposes, we `group_by` different variables such as year, country and gender to get the rates in different groups. 
 
 **US_2017 Data**
 ```{r message=FALSE, warning=FALSE, results='hide'}
@@ -512,6 +512,7 @@ What's more, different trends in different age group showed that 75+ age group o
 
 Finally, the average suicide ranking plot(2010-2016) told us how did America's suicide rate compare with other countirs. In top 40, USA ranked aroung 23rd, inciding a not optimistic situation
 
+The detailed analyaia can be found [here](world_suicide.html)
 
 ## US-level insight
 
