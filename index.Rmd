@@ -9,7 +9,8 @@ title: "The Suicide Rate Project"
 <img src="figures/IMG_0512.jpg" style="width:100%" class="center">
 </center>
 
+[Figure source](https://www.americannursetoday.com/suicide-among-nurses-might-hurt-us/)
 
-<font size="3" color="black">Unveil the global and domestic suicide situation and discover the potential risk factors for suicide in USA </font>
+<font size="3" color="black">Unveil the global and domestic suicide situations and discover the potential risk factors for suicide in USA </font>
 
 <i>Yimeng Shang, Yi Liu, Yue Lai, Xue Jin, Sibei Liu</i>
