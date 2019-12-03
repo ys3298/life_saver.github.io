@@ -65,7 +65,7 @@ According to WHO, about 800,000 people died by suicide in 2016, of which 79% occ
 <ul>
 <li>Trend in 15-74 years were largely consistant. </li>
 <li>In 75+ age group, the decrease happened all the time, from 30 death per 100k to 21 death per 100k.  </li>
-<li>Generally, the 75+ group had highest suicide rate, while 5-14 gae group had lowest rate all the time. </li>
+<li>Generally, the 75+ group had highest suicide rate, while 5-14 age group had lowest rate all the time. </li>
 </ul>
 
 # Average Suicide Rate Ranking by Country
