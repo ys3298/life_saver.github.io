@@ -12,7 +12,13 @@ library(tidyverse)
 library(plotly)
 library(corrplot)
 library(ggpubr)
+<<<<<<< HEAD
 library(ggplot2)
+=======
+
+library(ggplot2)
+
+>>>>>>> 1197cbe8386dfe849c99ed6a8876aaa0eaaef80f
 library(readxl)
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -21,6 +27,10 @@ knitr::opts_chunk$set(
 )
 
 theme_set(theme_minimal() + theme_bw() + theme(legend.position = "bottom"))
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1197cbe8386dfe849c99ed6a8876aaa0eaaef80f
 ```
 
 # Motivation
