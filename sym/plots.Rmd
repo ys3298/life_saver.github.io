@@ -1,0 +1,45 @@
+---
+title: "plots"
+author: "Yimeng Shang(ys3298)"
+date: "12/2/2019"
+output: html_document
+---
+
+```{r}
+
+```
+
+```{r}
+
+library(tidyverse)
+library(viridis)
+library(plotly)
+library(readxl)
+library(ggplot2)
+
+abb = read_excel("../data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
+
+suicide = read_excel("../data/suicide_age_gender.xlsx") %>% janitor::clean_names() %>% 
+  filter(state != "District of Columbia") %>% 
+  filter(is.na(ten_year_age_groups)) %>% 
+  drop_na(gender) %>% 
+  left_join(abb) %>% select(year, state_ab, state, gender, deaths, population) %>% 
+  mutate(rate = (deaths/population)*100000) %>% 
+  select(year, state_ab, gender, rate)
+
+
+suicide_all = suicide %>% group_by(year,gender) %>% summarise(rate = sum(rate))
+
+
+line = 
+  suicide_all %>%
+  ggplot(aes(x = year, y = rate)) + geom_point(aes(color = gender)) + geom_line(aes(color = gender)) + theme_bw()
+
+ggplotly(line)
+```
+
+```{r}
+
+```
+
+
