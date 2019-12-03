@@ -2,6 +2,7 @@
 title: "Final report"
 output: 
   html_document:
+    code_folding: hide
     toc: true
     toc_float: true
 
@@ -88,7 +89,7 @@ suicide_rate %>%
 ```
 
 
-On the other hand, the suicide rate in the USA increases overtime while it decrease in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.
+On the other hand, the suicide rate in the USA increases overtime while it decreases in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.
 
 ## Goal of our project
 
