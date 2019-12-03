@@ -5,7 +5,6 @@ output:
     code_folding: hide
     toc: true
     toc_float: true
-
 ---
 
 ```{r setup, include=FALSE}
@@ -13,9 +12,7 @@ library(tidyverse)
 library(plotly)
 library(corrplot)
 library(ggpubr)
-<<<<<<< HEAD
 library(ggplot2)
-=======
 library(readxl)
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -24,7 +21,6 @@ knitr::opts_chunk$set(
 )
 
 theme_set(theme_minimal() + theme_bw() + theme(legend.position = "bottom"))
->>>>>>> 385ada44b3bb804205f31e08178654671e5d3cbc
 ```
 
 # Motivation
