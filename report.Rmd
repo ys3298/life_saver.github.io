@@ -472,7 +472,10 @@ suicide_all = suicide %>% group_by(year,gender) %>% summarise(rate = sum(rate))
 
 line = 
   suicide_all %>%
-  ggplot(aes(x = year, y = rate)) + geom_point(aes(color = gender)) + geom_line(aes(color = gender)) + theme_bw()
+  ggplot(aes(x = year, y = rate)) + geom_point(aes(color = gender)) + geom_line(aes(color = gender)) + theme_bw() +
+  labs(
+    title = "Suicide rate change over time in US"
+  )
 
 ggplotly(line)
 ```
@@ -494,9 +497,10 @@ df1 = read_csv("./data/us_2017.csv") %>% janitor::clean_names() %>% filter(state
     values_to = "data"
   ) 
   
+  
 df1 %>% 
   plot_ly(y = ~data, color = ~variables, type = "box",
-          colors = "Set2")
+          colors = "Set2") 
 
 # population proportion
 
@@ -520,7 +524,12 @@ df2 = read_csv("./data/us_2017.csv") %>% janitor::clean_names() %>% filter(state
 boxplot = 
   df2 %>% 
   ggplot(aes(x = variables, y = data)) + geom_boxplot(aes(color = types)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(
+    x = "population compostion",
+    y = "proportion",
+    title = "population compostion"
+  ) + theme_bw()
 
 ggplotly(boxplot)
 ```

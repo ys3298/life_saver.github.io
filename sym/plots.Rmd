@@ -77,7 +77,12 @@ df2 = read_csv("../data/us_2017.csv") %>% janitor::clean_names() %>% filter(stat
 boxplot = 
   df2 %>% 
   ggplot(aes(x = variables, y = data)) + geom_boxplot(aes(color = types)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(
+    x = "population compostion",
+    y = "proportion",
+    title = "population compostion"
+  )
 
 ggplotly(boxplot)
 
