@@ -512,7 +512,7 @@ What's more, different trends in different age group showed that 75+ age group o
 
 Finally, the average suicide ranking plot(2010-2016) told us how did America's suicide rate compare with other countirs. In top 40, USA ranked aroung 23rd, inciding a not optimistic situation
 
-The detailed analyaia can be found [here](world_suicide.html)
+The detailed analysis can be found [here](world_suicide.html)
 
 ## US-level insight
 
