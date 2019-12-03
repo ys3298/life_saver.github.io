@@ -10,6 +10,6 @@ title: "The Suicide Rate Project"
 </center>
 
 
-<font size="3" color="black">Unveil the suicide situation domestically and globally and discover the potential risk factors for suicide in USA </font>
+<font size="3" color="black">Unveil the global and domestic suicide situation and discover the potential risk factors for suicide in USA </font>
 
 <i>Yimeng Shang, Yi Liu, Yue Lai, Xue Jin, Sibei Liu</i>
