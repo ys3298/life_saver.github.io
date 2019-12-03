@@ -102,6 +102,9 @@ On the other hand, the suicide rate in the USA increases overtime while it decre
 
 # Related Work
 
+We are inspired to work on this project given our collective interest in suicide in America and the role of data science for exploratory data analysis. Through the project in [Kaggle](https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016), we are aware that suicide has association with many risk factors which are preventable. In the meantime, we found that suicide rate in the USA increases at an unprecedented speed. And suicide has become the leading cause of deaths among young people. 
+
+Therefore, we created this website with the goal to develop interactive visualization of suicide rate and potential risk factors. These would be easy to understand for people at risk and help them increase awareness of danger related to suicide and could take actions to prevent suicide.
 
 
 # Initial Question
