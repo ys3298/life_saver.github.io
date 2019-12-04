@@ -16,6 +16,6 @@ title: "The Suicide Rate Project"
 
 
 
-There is a quick introduction to our website. You can access it [here](screenshot.mp4).
+There is a quick introduction to our website. You can access it on [YouTube](https://youtu.be/81wmROj-ZYQ) or from the mp4 [file](screenshot.mp4).
 
 <i>Yimeng Shang, Yi Liu, Yue Lai, Xue Jin, Sibei Liu</i>
