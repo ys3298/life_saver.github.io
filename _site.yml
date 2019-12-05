@@ -10,7 +10,7 @@ navbar:
       - text: "Worldwide"
         href: world_suicide.html
       - text: "USA"
-        href: https://fduxj.shinyapps.io/suicide/
+        href: https://fduxj.shinyapps.io/state/
     - text: "Regression"
       href: scatter_plot.html
     - text: "Report"
