@@ -146,12 +146,10 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 
 * The alcohol consumption data of each state is from [NIH; NIAAA](https://www.openicpsr.org/openicpsr/project/105583/version/V3/view;jsessionid=F62F155BFF788FAB14D58B1EF8FFF774), showing apparent per Capita Alcohol Consumption: National, State, and Regional Trends in 1977-2017. We only select 2007 data.
 
-* The education attainment data of each state is from
-[SSTi](https://ssti.org/blog/useful-stats-educational-attainment-across-states-2000-2017), containing 
+* The education attainment data of each state is from [SSTi](https://ssti.org/blog/useful-stats-educational-attainment-across-states-2000-2017), containing 
 information on share of population with advanced degree, bachelor's degree, associate's or some college, and high school or less.
 
-*  The gun of each state is from
-[ThoughtCo](https://www.thoughtco.com/gun-owners-percentage-of-state-populations-3325153)
+*  The gun of each state is from [ThoughtCo](https://www.thoughtco.com/gun-owners-percentage-of-state-populations-3325153)
 containing information on number of guns per capita and total guns registered of each state in 2017.
 
 All the data can be found [here](https://github.com/ys3298/life_saver.github.io/tree/master/data).
