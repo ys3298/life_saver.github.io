@@ -3,6 +3,8 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
+    - text: "Introduction"
+      href : screenshot.html
     - text: Suicide Situation
       menu:
       - text: "Worldwide"
@@ -14,7 +16,7 @@ navbar:
     - text: "Report"
       href: report.html
     - icon: fa fa-camera
-      href:
+      href: screenshot.mp4
     - icon: fa-github fa-lg
       href: https://github.com/ys3298/life_saver.github.io
     - icon: fa-envelope fa-lg
