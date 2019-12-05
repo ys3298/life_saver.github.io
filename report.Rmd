@@ -26,16 +26,16 @@ theme_set(theme_minimal() + theme_bw() + theme(legend.position = "bottom"))
 
 ## Some facts about suicide
 
-* About 800,000 people died by suicide in global every year, which accounts for 1.4% of all deaths worldwide.
+* About 800,000 people died by suicide every year, which accounts for 1.4% of all deaths worldwide.
 
-* The annual U.S. suicide rate increased 10% between 2014 and 2017 according to the CDC’s NCHS
+* The annual U.S. suicide rate increased by 10% between 2014 and 2017 according to the CDC’s National Center for Health Statistics(NCHS).
 
-* In 2015, suicide has become the second leading cause of death among 15-34 age group and the third leading cause of death between the ages of 10-14 in the USA.
+* In 2015, suicide has become the second leading cause of death among 15-34 age group and the third leading cause of death among 10-14 age group in the U.S.
 
-* It is reported that in 2016 suicide was the 10th leading cause of death in the U.S., imposing a cost of $69 billion to the US annually.
+* It is reported that in 2016 suicide was the 10th leading cause of death in the U.S., imposing a cost of $69 billion annually.
 
 
-On the one hand, almost all the risk factors for the suicide are preventable. Usually, people are not aware of the risk factors of suicide and situate themselves in the dangerous environment. We believe that a better understanding of potential risk factors is essential for the prevention of suicide.
+On the one hand, almost all the risk factors for suicide are preventable. Usually, people are not aware of the risk factors of suicide and situate themselves in the dangerous environment. We believe that a better understanding of potential risk factors is essential for the prevention of suicide.
 
 ```{r, message=FALSE, warning=FALSE}
 usa_suicide = 
@@ -81,7 +81,7 @@ suicide_rate %>%
   ggplot(aes(x = year, y = suicide_rate, color = region)) +
   geom_point() + geom_line() +
   labs(
-    title = "1999-2017 Suicide Rate in the USA and global",
+    title = "1999-2017 Suicide Rate in the U.S. and global",
     x = "Year",
     y = "Suicides per 100k"
   )
@@ -89,29 +89,30 @@ suicide_rate %>%
 ```
 
 
-On the other hand, the suicide rate in the USA increases overtime while it decreases in global. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures.
+On the other hand, the suicide rate in the U.S. increases overtime while it decreases globally. Therefore, we want to focus on the U.S. to explore the risk factors and promote effective preventive measures. 
 
 ## Goal of our project
 
 * Visualizing the general situation of suicide rate worldwide
 
-* Understanding risk factors for suicide in U.S.
-
-* Visualizing correlations of these risk factors with suicide in U.S.
+* Exploring risk factors for suicide in U.S.
 
 * Visualizing the distribution of risk factors and suicide in the U.S.
+
+* Analyzing correlations of these risk factors with suicide in U.S.
+
 
 
 # Related Work
 
-We are inspired to work on this project given our collective interest in suicide in America and the role of data science for exploratory data analysis. Through the project in [Kaggle](https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016), we are aware that suicide has association with many risk factors which are preventable. In the meantime, we found that suicide rate in the USA increases at an unprecedented speed. And suicide has become the leading cause of deaths among young people. 
+We are inspired to work on this project given our collective interest in suicide in America and the role of data science for exploratory data analysis. Through the project in [Kaggle](https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016), we are aware that suicide has associations with many preventable risk factors. In the meantime, we find that the suicide rate in the U.S. increases at an unprecedented speed.
 
-Therefore, we created this website with the goal to develop interactive visualization of suicide rate and potential risk factors. These would be easy to understand for people at risk and help them increase awareness of danger related to suicide and could take actions to prevent suicide.
+Therefore, we created this website to develop interactive visualization of suicide rate and potential risk factors. These would be easy to understand for people at risk and help them increase awareness of danger related to suicide and could take action to prevent suicide.
 
 
 # Initial Question
 
-We aim to examine the risk factor for suicide and suicide rate in the USA. We want to visualize the association and data in innovative and interactive way. As stated above, our questions are as follows:
+We aim to investigate the risk factors for suicide and suicide rate in the U.S.. We want to visualize the association and data innovatively and interactively. As stated above, our questions are as follows:
 
 * What are potential risk factors for suicide? How could we visualize the association between these factors and suicide rate?
 
@@ -134,23 +135,23 @@ We aim to examine the risk factor for suicide and suicide rate in the USA. We wa
 
 **USA Suicide Data and the potential risk factors data**
 
-* The Suicide Rates of each state from 1999 to 2017 is from [Domectis suicide distribution dataset](./data/suicide_age_gender.xlsx) from CDC. This dataset also includes gender and age composition in each state as well as suicide rates among groups.
+* The suicide rates of each state from 1999 to 2017 is from [Domectis suicide distribution dataset](./data/suicide_age_gender.xlsx) from CDC. This dataset also includes gender and age composition in each state as well as suicide rates among groups.
 
-* The Per captial GDP of each State in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.
+* The per capital GDP of each state in 2007 is from [Wiki](https://en.wikipedia.org/wiki/List_of_U.S._states_by_GDP_per_capita), presenting a list of U.S states sorted by their gross domestic product (GDP) per capita from 2011-2018.
 
-* The Average Yearly Percipitation of each state is from [NETSTATE.COM](https://www.netstate.com/states/tables/state_precipitation.htm), presenting a list of U.S. states sorted by their average yearly precipitation.
+* The average yearly precipitation of each state is from [NETSTATE.COM](https://www.netstate.com/states/tables/state_precipitation.htm), presenting a list of U.S. states sorted by their average yearly precipitation.
 
-* The Average Temperature of each state is from   [USA.COM](http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&dis=&wist=&plow=&phigh=), presenting a list of U.S. areas sorted by their average temperature. 
+* The average temperature of each state is from   [USA.COM](http://www.usa.com/rank/us--average-temperature--metro-area-rank.htm?yr=9000&dis=&wist=&plow=&phigh=), presenting a list of U.S. areas sorted by their average temperature. 
 
-* The marijuana data of each state is from [samhsa.gov](https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaePercentsExcelCSVs2017/NSDUHsaePercents2017.pdf), showing percentage of U.S. adults that have used cannabis within the past year from 2016 to 2017, by state.
+* The marijuana data of each state is from [samhsa.gov](https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaePercentsExcelCSVs2017/NSDUHsaePercents2017.pdf), showing the percentage of U.S. adults that have used cannabis within the past year from 2016 to 2017, by state.
 
-* The alcohol consumption data of each state is from [NIH; NIAAA](https://www.openicpsr.org/openicpsr/project/105583/version/V3/view;jsessionid=F62F155BFF788FAB14D58B1EF8FFF774), showing apparent per Capita Alcohol Consumption: National, State, and Regional Trends in 1977-2017. We only select 2007 data.
+* The alcohol consumption data of each state is from [NIH; NIAAA](https://www.openicpsr.org/openicpsr/project/105583/version/V3/view;jsessionid=F62F155BFF788FAB14D58B1EF8FFF774), showing apparent per capita alcohol consumption: national, state, and regional trends in 1977-2017. We only select 2007 data.
 
 * The education attainment data of each state is from
 [SSTi](https://ssti.org/blog/useful-stats-educational-attainment-across-states-2000-2017), containing 
-information on share of population with advanced degree, bachelor's degree, associate's or some college, and high school or less.
+information on share of population with advanced degree, bachelors' degree, associate's or some college, and high school or less.
 
-*  The gun of each state is from
+*  The gun data of each state is from
 [ThoughtCo](https://www.thoughtco.com/gun-owners-percentage-of-state-populations-3325153)
 containing information on number of guns per capita and total guns registered of each state in 2017.
 
@@ -221,7 +222,7 @@ global_rank=global %>%
   
 ```
 
-We directly download the csv file of world suicide data [here]( https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016). Then calculate for suicide rate per 100k using suicide number and total population. Next for different purposes, we `group_by` different variables such as year, country and gender to get the rates in different groups. 
+We directly downloaded the csv file of world suicide data [here]( https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016). Then we calculated suicide rate per 100k using suicide number and total population. Next, for different purposes, we `group_by` different variables such as year, country and gender to get the rates in different groups. 
 
 **US_2017 Data**
 ```{r message=FALSE, warning=FALSE, results='hide'}
@@ -440,89 +441,89 @@ names(us_2017) = c("State",
 # write_csv(us_2017,"./data/us_2017.csv")
 ```
 
-After we got USA Suicide Data and the potential risk factors data, we did some data cleaning process. For those data who can be downloaded directly from the website, we downloaded them as csv or excel. For those who can be downloaded, we read data from website and extracted tables using `read_html` function. Then, we manipulated the data to select only states and risk factor information on 2017. Finally, we joined every dataframe together to get the final merged dataset.
+After we got USA Suicide Data and the potential risk factors data, we did some data cleaning process. We collected data by downloading directly or extracting tables using `read_html` function from the website. Then, we selected states and risk factor information in 2017 and joined every data frame together to get the final merged dataset.
 
 
 ## Final Combined Dataset of USA suicide and risk factors
 
-After we collecting data from different sources, we constructed a [merged dataset](./data/US_2017.csv) collecting multiple protential risk factors for suicide rate in different states in US, here is the discriptions:
+After collecting data from different sources, we constructed a [merged dataset](./data/US_2017.csv) collecting multiple potential risk factors for suicide rate in different states in the U.S., here are the descriptions:
 
-**Suicide rate (2017)**: The number of suicide deaths cases per 100000 people in 2017.
+**Suicide rate (2017)**: The number of suicide deaths cases per 100k population.
 
-**Female proportion (2017)**: The proportion of Female in 2017.
+**Female proportion (2017)**: The proportion of female.
 
-**Male proportion (2017)**: The proportion of Male in 2017.
+**Male proportion (2017)**: The proportion of male.
 
-**Female Suicide rate (2017)**: The number of female suicide deaths cases per 100000 females in 2017.
+**Female Suicide rate (2017)**: The number of female suicide deaths cases per 100k females.
 
-**Male Suicide rate (2017)**: The number of male suicide deaths cases per 100000 males in 2017.
+**Male Suicide rate (2017)**: The number of male suicide deaths cases per 100k males.
 
-**Age 5-14 (2017)**: The proportion of people between age 5-14 in 2017.
+**Age 5-14 (2017)**: The proportion of people aged between 5-14.
 
-**Age 15-24 (2017)**: The proportion of people between age 15-24 in 2017.
+**Age 15-24 (2017)**: The proportion of people aged between 15-24.
 
-**Age 25-34 (2017)**: The proportion of people between age 25-34 in 2017.
+**Age 25-34 (2017)**: The proportion of people aged between 25-34.
 
-**Age 35-44 (2017)**: The proportion of people between age 35-44 in 2017.
+**Age 35-44 (2017)**: The proportion of people aged between 35-44.
 
-**Age 45-54 (2017)**: The proportion of people between age 45-54 in 2017.
+**Age 45-54 (2017)**: The proportion of people aged between 45-54.
 
-**Age 55-64 (2017)**: The proportion of people between age 55-64 in 2017.
+**Age 55-64 (2017)**: The proportion of people aged between 55-64.
 
-**Age 65-74 (2017)**: The proportion of people between age 65-74 in 2017.
+**Age 65-74 (2017)**: The proportion of people aged between 65-74.
 
-**Age 75-84 (2017)**: The proportion of people between age 75-84 in 2017.
+**Age 75-84 (2017)**: The proportion of people aged between 75-84.
 
-**Age >85 (2017)**: The proportion of people between age over 85 in 2017.
+**Age >85 (2017)**: The proportion of people aged over 85.
 
-**Alcohol consumption (2017)**: Alcohol consumption per capita in gallons in 2017.
+**Alcohol consumption (2017)**: Alcohol consumption per capita in gallons
 
-**Marijuana usage (2017)**: Marijuana users percentage in 2017.
+**Marijuana usage (2017)**: The proportion of people using marijuana.
 
-**Advanced degree (2017)**: The proportion of people who have advanced degree in 2017.
+**Advanced degree (2017)**: The proportion of people with advanced degrees.
 
-**Bachelors degree(2017)**: The proportion of people who have Bachelors degree in 2017.
+**Bachelors degree(2017)**: The proportion of people with Bachelor's degrees.
 
-**College degree (2017)**: The proportion of people who have College degree in 2017.
+**College degree (2017)**: The proportion of people with College degrees.
 
-**Below college degree (2017)**: The proportion of people who have below college degree in 2017.
+**Below college degree (2017)**: The proportion of people with below college degrees.
 
-**GDP (2017)**: Gross Domestic Product in 2017 per capita in each State.
+**GDP (2017)**: Gross Domestic Product per capita.
 
-**Guns number per capita (2017)**: Averaged guns number per capita in 2017.
+**Guns number per capita (2017)**: Averaged guns number per capita.
 
-**Guns number registered (2017)**: Averaged guns number registered in 2017
+**Guns number registered (2017)**: Averaged guns number registered
 
 **Precipitation**: Averaged Precipitation in inches.
 
 **Temperature**: Averaged Temperature in F.
 
-Another dataset we used is [Domectis suicide distribution dataset](./data/suicide_age_gender.xlsx) from 1999 to 2017. In this dataset, we have information about number of suicide cases in different year, states, gender and age groups and the population in each groups. Using this dataset, we can analyze how suicide cases change in each state in time and how suicide cases distributed in different gender and age groups.
+Another dataset we used is [Domectis suicide distribution dataset](./data/suicide_age_gender.xlsx) from 1999 to 2017. In this dataset, we have information about number of suicide cases in different years, states, gender and age group and the population in each groups. Using this dataset, we can analyze how suicide cases change in each state in time and how suicide cases distributed in different gender and age groups.
 
 
-# Subanalyses
+# Sub-analyses
 
 ## World-level insight
 
-Visulization the world data helps us to undertand the general trend of suicide rate among age, gender and try to capture the difference between domestic and global suicide rate situation.
+Visualizing the world data helps us to understand the general trend of suicide rate among different age, gender and capture the difference between domestic and global suicide rate situation.
 
-Firstly, we drew an animation world map Gif to show the suicide rate change of each country from 1986-2016.
+Firstly, we drew an animated world map Gif to show the suicide rate change of each country from 1986-2016.
 
-Secondly, the line plot was made to show the anunal global suicide rate change. We can tell that before 1995, a dramatic increase happened and after 1995, a steady drop followed.
+Secondly, the line plot was made to show the annual global suicide rate change. We can tell that before 1995, a dramatic increase happened and after 1995, a steady drop followed.
 
-Thirdly, the global suicide rate change in gender was presented. Generally, the rate in male was much higher than rate in female.
+Thirdly, the global suicide rate change by gender was presented. Generally, the rate in male was much higher than the rate in female.
 
-What's more, different trends in different age group showed that 75+ age group occupied the highest position all the time. But all age groups all were experiencing a drop from 2000 to 2016.
+What's more, different trends in different age groups showed that 75+ age group occupied the highest position all the time. But all age groups were experiencing a drop from 2000 to 2016.
 
-Finally, the average suicide ranking plot(2010-2016) told us how did America's suicide rate compare with other countirs. In top 40, USA ranked aroung 23rd, inciding a not optimistic situation
+Finally, the average suicide ranking plot(2010-2016) told us how did America's suicide rate compare with other countries. In top 40, USA ranked 23rd, indicating a worrying situation.
 
-The detailed analysis can be found [here](world_suicide.html)
+The detailed analysis can be found [here](world_suicide.html).
 
 ## US-level insight
 
-To show how the suicide cases distributed in different states, we made a Crude Suicide Rate map allowing users to toggle between different years (1999-2017) and choose gender, demonstrating the changes in suicide rate over time and visualize regional differences across the U.S. The map demonstrates that there are significant changes over time and gender.
+To show how the suicide cases distributed in different states, we made a Crude Suicide Rate map allowing users to toggle between different years (1999-2017) and choose gender, demonstrating the changes in the suicide rate over time and visualize regional differences across the U.S. The map demonstrates that there are significant changes over time and gender.
 
-We made a line plot to show the change of total suicide rate by year in US. We can see a stable increase by year and the truth that there are much more cases of suicide in male than in female.
+We made a line plot to show the change of total suicide rate by year in US. We can see a stable increase by year and the fact that there are many more cases of suicide in male than in female.
 ```{r message = FALSE}
 abb = read_excel("./data/state_ab.xlsx") %>% mutate(state = str_replace(state, "\\s", ""))
 
@@ -548,7 +549,7 @@ line =
 ggplotly(line)
 ```
 
-We also made boxplots to show the distributions of suicides cases in states and population composition in states.
+We also made boxplots to show the distributions of suicides cases and population composition in states.
 ```{r message=FALSE, warning=FALSE}
 df = read_csv("./data/us_2017.csv") %>% janitor::clean_names() %>% filter(state != "District of Columbia") %>% 
   pivot_longer(
@@ -604,29 +605,28 @@ ggplotly(boxplot)
 ```
 
 
-To show the distribution of the risk factors, we construct a US map in shiny app allowing users to choose the types of variables, visualizing regional differences across the U.S and a bar plot showing the intuitive number in different states. Users are also allowed to choose TOP n states they want to explore in both plots.
+To show the distribution of the risk factors, we constructed the U.S. map in shiny app allowing users to choose the types of variables, visualizing regional differences across the U.S. and a bar plot showing the intuitive number in different states. Users can choose TOP N states they want to explore in both plots.
 
 # Regression Analysis
 
-We are interested in whether there is a linear association between suicide rate and some risk factors. We choose `suicide` as the mean outcome, `gun`, `alcohol`, `temperature`, `precipitation`, `marijuana`, `education`, `gdp` and `gender` as candidate covariates, each with 50 observations. 
+We are interested in whether there is a linear association between suicide rate and some risk factors. We chose `suicide` as the main outcome, `gun`, `alcohol`, `temperature`, `precipitation`, `marijuana`, `education`, `GDP` and `gender` as candidate covariates, each with 50 observations. 
 
-One value of `gun` in Wyoming and one value of `temperature` in Rhode Island were missing. We replaced them with the mean value of other 49 observations. 
+One value of `gun` in Wyoming and one value of `temperature` in Rhode Island were missing. We replaced them with the mean value of the other 49 observations. 
 
-After tidying the [merged dataset](./data/US_2017.csv), we obtain the [regression dataset](./data/regression_data.csv). The description of the dataset is shown below:
+After tidying the [merged dataset](./data/US_2017.csv), we obtained the [regression dataset](./data/regression_data.csv). The description of the dataset is shown below:
 
 | Variables  | Description   |
 | :------------------: | :----------------------------------------------------------------------------------: |
 | state  | State  |
-| suicide  | Suicide rate per 100000 population  |
-| gun  | Number of guns per 1000 population  |
+| suicide  | The number of suicide deaths per 100k population  |
+| gun  | Averaged guns number per capita  |
 | alcohol  | Alcohol consumption per capita (gallons of ethanol)|
 | temperature  | Average temperature (F)     |
 | precipitation |  Average precipitation (inches) |                         
-| marijuana  | Marijuana use in adults (%)
+| marijuana  | The proportion of people using marijuana (%)
 | education    | Educational attainment - bachelor's degree or higher (%)   |
 | gdp    | GDP per capita (dollars)   |
 | gender    | Male (%)   |
-
 
 ```{r, message = FALSE}
 regression_data = read_csv("./data/us_2017.csv") %>%
@@ -753,7 +753,7 @@ fit3 %>%
   knitr::kable(digits = 4)
 ```
 
-The coefficients of model change slightly, except for temperature(over 10%). We decided to retain 26 and 50. 
+The coefficients of model changed slightly, except for temperature(over 10%). We decided to retain 26 and 50. 
 
 ### Visualize model coefficients
 
@@ -765,24 +765,25 @@ GGally::ggcoef(fit2,aes(x = estimate, y = term, color =  term),size = 0.8,
 
 __Results:__
 
-* "alcohol" and "precipitation" were removed from the model. 
+* The "alcohol" and "precipitation" were removed from the model.
 
 * The fitted equation is "suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp". 
 
 * Adjusted R-square is 0.8124, which means these variables can explain a large proportion of variance in the suicide rate. 
 
-* According to the results, suicide rate is higher in states where there is a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment.
+* According to the results, the suicide rate is higher in states where there is a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment. 
 
-* Holding other variables constant, for one unit increase in gun ownership(per 1,000), marijuana use in adults(%), or for one unit decrease in  proportion of male (%), GDP per capita (dollars), the suicide rate(per 100,000 population) will respectively increase by 0.13, 0.27, 3.11, or decrease by 0.22, 0.0002 on avarage. 
+* Holding other variables constant, for one unit increase in gun ownership(per 1,000), marijuana use in adults(%), or for one unit decrease in  proportion of male (%), GDP per capita (dollars), the suicide rate(per 100k population) will increase by 0.13, 0.27, 3.11 respectively, or decrease by 0.22, 0.0002 on average.   
+ 
 
 
 # Discussion 
 
-Suicide is the product of complex risk factors. From our linear regression model, the suicide rate in 50 states in the USA is best predicted by gender, the gun ownership rates, average temperature, the marijuana use, the degree of education and GDP. However, future suicide rate could not be limited by these variables. While suicide is a global phenomenon, further study needs to be conducted to determine the generalization of our model and hypothesis.
+Multiple risk factors are responsible for suicide. From our linear regression model, the suicide rate in 50 states in the U.S. is significantly associated with gender, gun ownership rates, average temperature, marijuana use, the degree of education and GDP. However, future suicide rate could not be limited by these variables. While suicide is a global phenomenon, further study needs to be conducted to determine the generalization of our model and hypothesis.
 
-In this project, we do gain several insights about risk factors for suicide rate in the USA. Firstly, gender matters. Men are at higher risk of suicide compared to women, which maybe explained by the different socioeconomic status owned and the degree of pressure are faced. Another important factors are the marijuana use and the gun ownership rates. This highlights that legislation needs to be improved for restrict in drugs and gun to prevent suicide. What’s more, the average temperature, degree of education and GDP are all negative correlated with suicide rate.
+In this project, we do gain several insights about risk factors for suicide rate in the U.S.. Firstly, gender matters. Men are at higher risk of suicide compared to women, which may be explained by the different socioeconomic status owned and the degree of pressure are faced. Other important factors are the marijuana use and the gun ownership rates. This highlights that legislation needs to be improved for restrictions in drugs and guns to prevent suicide. What’s more, the average temperature, degree of education and GDP are all negatively correlated with the suicide rate.
 
-With the visualization of geographic variation of these risk factors in the USA, we get insights into target states for preventing suicide. We hope that our project could help to solve the puzzle for suicide cause and increase the awareness of the public.
+With the visualization of geographic variation of these risk factors in the U.S., we get insights into target states with higher prevalence of risk factors. We hope that our project could help to solve the puzzle for suicide cause and increase the awareness of the public.
 
 
 

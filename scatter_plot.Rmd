@@ -38,16 +38,16 @@ write_csv(regression_data,"./regression_data.csv")
 
 ## Method
 
-Data from several sources were joined together into a merged dataset. We used 2017 year to build the model. Main outcome is suicide rate for each state, candidate predictors are gun, alchohol, temperature, precipitation, marijuana, education, gdp and gender for each state. We used stepwise approach to select model. 
+Data from several sources were joined together into a merged dataset. We used data in 2017 to build the model. The main outcome is the suicide rate for each state, candidate predictors are gun, alcohol, temperature, precipitation, marijuana, education, GDP and gender for each state. We used stepwise approach to select a model. 
 
 | Predictor  | Description   |
 | :------------------: | :----------------------------------------------------------------------------------: |
-| suicide  | Suicide rate per 100000 population  |
-| gun  | Number of guns per 1000 population  |
+| suicide  | The number of suicide deaths per 100k population  |
+| gun  | Averaged guns number per capita  |
 | alcohol  | Alcohol consumption per capita (gallons of ethanol)|
 | temperature  | Average temperature (F)     |
 | precipitation |  Average precipitation (inches) |                         
-| marijuana  | Marijuana use in adults (%)
+| marijuana  | The proportion of people using marijuana (%)
 | education    | Educational attainment - bachelor's degree or higher (%)   |
 | gdp    | GDP per capita (dollars)   |
 | gender    | Male (%)   |
@@ -163,8 +163,8 @@ GGally::ggcoef(fit2,aes(x = estimate, y = term, color =  term),size = 0.8,
   labs(title = "95% CI for Model Coefficients")
 ```
 
-* "alcohol" and "precipitation" were removed from the model. 
+* The "alcohol" and "precipitation" were removed from the model. 
 * The fitted equation is "suicide = -143.99 + 0.12gun - 0.10temperature + 0.25marijuana - 0.23education + 3.56gender - 0.0002gdp". 
 * Adjusted R-square is 0.8124, which means these variables can explain a large proportion of variance in the suicide rate. 
-* According to the results, suicide rate is higher in states where there is a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment. 
-* Holding other variables constant, for one unit increase in gun ownership(per 1,000), marijuana use in adults(%), or for one unit decrease in  proportion of male (%), GDP per capita (dollars), the suicide rate(per 100,000 population) will respectively increase by 0.13, 0.27, 3.11, or decrease by 0.22, 0.0002 on avarage.   
+* According to the results, the suicide rate is higher in states where there is a higher gun ownership rate, higher marijuana usage, higher ratio of males to females, lower temperature and lower educational attainment. 
+* Holding other variables constant, for one unit increase in gun ownership(per 1,000), marijuana use in adults(%), or for one unit decrease in  proportion of male (%), GDP per capita (dollars), the suicide rate(per 100k population) will increase by 0.13, 0.27, 3.11 respectively, or decrease by 0.22, 0.0002 on average.   

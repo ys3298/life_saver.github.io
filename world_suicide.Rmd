@@ -19,9 +19,9 @@ According to WHO, about 800,000 people died by suicide in 2016, of which 79% occ
 
 <i><b>Findings</b></i>
 <ul>
-<li>In the time period, most countries's suicide rates didn't have dramatic change. </li>
-<li>In Russia, an obvious change in suicide rate can be observed. From 1990 to 1999, an increase was shown, as the color got lighter. From 2010-2016, there was a noticable decrease, with heavier color showing up.</li>
-<li>The suicide rate in Sourth American stayed in low position during 1985-2016</li>
+<li>In the time period, most countries' suicide rates didn't have dramatic changes. </li>
+<li>In Russia, an obvious change in the suicide rate can be observed. From 1990 to 1999, an increase was shown, as the color got lighter. From 2010-2016, there was a noticeable decrease, with heavier color showing up.</li>
+<li>The suicide rate in South American stayed in low position during 1985-2016</li>
 </ul>
 
 <br>
@@ -34,9 +34,9 @@ According to WHO, about 800,000 people died by suicide in 2016, of which 79% occ
 
 <i><b>Findings</b></i>
 <ul>
-<li>From 1985-1995, the suicide rate soared dramatically, inceasing by more 3 per 100k people </li>
-<li>The peak was in 1995, 15.3 per 100k people</li>
-<li>After 1995, an obvious and persistent decrease happened, with occasional rise in this period</li>
+<li>From 1985-1995, the suicide rate soared dramatically, increasing by more 3 deaths per 100k population </li>
+<li>The peak was in 1995, 15.3 deaths per 100k people</li>
+<li>After 1995, an obvious and persistent decrease happened, with occasional rises in this period</li>
 
 </ul>
 <br>
@@ -49,9 +49,9 @@ According to WHO, about 800,000 people died by suicide in 2016, of which 79% occ
 
 <i><b>Findings</b></i>
 <ul>
-<li>In males, the suicide rate fluctuated a lot. From 1985-1995, the rate increased largely and peacked around 25 death per 100k at 1995. After 1996, a steady decrease ocurred.</li>
+<li>In males, the suicide rate fluctuated a lot. From 1985-1995, the rate increased largely and peaked around 25 deaths per 100k in 1995. After 1996, a steady decrease occurred.</li>
 <li>In female, a very slight decrease was observed during the time</li>
-<li>The rate in male was about 3 times higher than rate in female </li>
+<li>The rate in male was about 3 times higher the than rate in female </li>
 </ul>
 
 <br>
@@ -63,9 +63,9 @@ According to WHO, about 800,000 people died by suicide in 2016, of which 79% occ
 </center>
 <i><b>Findings</b></i>
 <ul>
-<li>Trend in 15-74 years were largely consistant. </li>
-<li>In 75+ age group, the decrease happened all the time, from 30 death per 100k to 21 death per 100k.  </li>
-<li>Generally, the 75+ group had highest suicide rate, while 5-14 age group had lowest rate all the time. </li>
+<li>Trends in 15-74 years were largely consistent. </li>
+<li>In the 75+ age group, the decrease happened all the time, from 30 death per 100k to 21 death per 100k.  </li>
+<li>Generally, the 75+ group had the highest suicide rate, while 5-14 age group had the lowest rate all the time. </li>
 </ul>
 
 # Average Suicide Rate Ranking by Country
@@ -98,12 +98,12 @@ ggplotly(d)
 ```
 
 
-The bar chart shows  top 40 countries with high average suicida rate from 2010-2016
+The bar chart shows the top 40 countries with high average suicide rate from 2010-2016
 <br>
 </br>
 <i><b>Findings</b></i>
 <ul>
-<li>The country with highest suiciate rate is Lithuania, with more than 30 death per 100 k people </li>
-<li>America ranks around 23th, with around 15 death per 100k people, inciding a not optimistic situation  </li>
+<li>The country with the highest suicide rate is Lithuania, with more than 30 deaths per 100k population </li>
+<li>U.S. ranks around 23th, with around 15 deaths per 100k population, incicating a not optimistic situation  </li>
 
 </ul>
